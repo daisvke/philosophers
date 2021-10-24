@@ -1,3 +1,7 @@
+# Vim
+.*.?.swp
+.*.swp
+
 # Prerequisites
 *.d
 
