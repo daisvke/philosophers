@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/10/24 06:10:09 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/10 01:06:55 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,31 @@
 
 # define ERR_LIMIT	3
 
+typedef struct s_time
+{
+	int	die;
+	int	eat;
+	int	sleep;
+}		t_time;
+
 typedef struct s_philo
 {
+	int		id;
 	bool	dead;
-	t_size	last_meal_time;
-}
+	t_time	time;
+	int		last_meal_time;
+}			t_philo;
 
 typedef struct s_env
 {
-	int			philo_nbr;
-	int			die_time;
-	int			eat_time;
-	int			sleep_time;
-	int			eat_limit;
-	pthread_t	*threads
+	int				philo_nbr;
+	t_time			time;
+	int				eat_limit;
+	t_philo			*philo;
+	pthread_t		*threads
 	pthread_mutex_t	*forks;
-	bool		errors[ERR_LIMIT];
-}				t_env;
+	bool			errors[ERR_LIMIT];
+}					t_env;
 
 /*
 ** system calls
