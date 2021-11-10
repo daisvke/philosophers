@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:24 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/10/24 04:34:12 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/10 05:16:56 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ void	ph_free_arrays(t_env *env)
 int	main(int argc, char *argv[])
 {
 	t_envs	env;
-
+	
+	ph_init_errors(&env);
 	if (ph_check_args(argc, argv) != ERROR)
 	{
 		if (ph_init_env(&env, argv) != ERROR)
 			ph_run_philo(&env);
 		ph_free_arrays(&env);
-		return (ph_check_errors(env));
 	}
 	return (ph_check_errors(env));
 }

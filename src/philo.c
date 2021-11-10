@@ -6,34 +6,43 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:17:32 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/10 02:18:04 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/10 06:23:32 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ph_hold_left_fork()
+bool	ph_is_dead(t_philo philo)
+{
+	if (philo.dead == true)
+		return (true);
+	return (false);
+}
+
+bool	ph_has_reached_meal_limit(t_env *env)
 {
 	int	id;
+	int	limit;
 
-	id = philo->id - 1
-	pthread_mutex_lock(
+	id = env->curr_id;
+	limit = env->meal_limit;
+	if (env->philo[id].meal_count == limit)
+		return (true);
+	return (false);
 }
 
-void	ph_eat(t_philo *philo)
+void	*ph_start_routine(t_env *env)
 {
-	ph_hold_left_fork();
+	t_philo	**philo;
+	int		id;
 
-
-}
-
-void	ph_start_routine(t_philo *philo)
-{
-	while (philo->dead == false && philo->reached_eat_limit == false)
+	philo = env->philo;
+	id = env->curr_id;
+	while (!ph_ph_is_dead(philo[id]) && !ph_has_reached_meal_limit(env))
 	{
-		ph_eat(philo);
-		ph_sleep(philo);
-		ph_think(philo);
+		if (ph_eat(env) == ERROR \
+			|| ph_usleep(env, env->time.sleep) == ERROR)
+			break ;
 	}
 }
 
@@ -59,19 +68,22 @@ int	ph_create_threads(t_env *env)
 
 void	ph_join_threads(t_env *env)
 {
-	void	*status;
+	int	i;
 
-	while
+	i = 0;
+	while (i < env->philo_nbr)
 	{
-
-		pthread_join(id, &status)
-		if ((int *)status == ERROR)
-			return (ERROR);
+		if (pthread_join(env->tid_array[i], NULL) != SUCCESS)
+		{
+			env->errors[5] = true;
+			break ;
+		}
+		++i;
 	}
 }
 
-void	ph_run_philo(t_env *env)
+int	ph_run_philo(t_env *env)
 {
 	ph_create_threads(env);
-	ph_join_thread(env);
+	ph_join_threads(env);
 }

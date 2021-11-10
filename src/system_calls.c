@@ -6,13 +6,13 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 03:38:47 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/10/24 04:34:12 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/10 06:28:18 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*ph_malloc(t_ppx *env, size_t nbr, size_t size)
+void	*ph_malloc(t_env *env, size_t nbr, size_t size)
 {
 	void	*ptr;
 
@@ -30,6 +30,16 @@ void	*ph_free(void *data)
 	if (data)
 		free(data);
 	return (NULL);
+}
+
+int	ph_usleep(t_env *env, unsigned int msec)
+{
+	if (usleep(msec * 1000) != SUCCESS)
+	{
+		env->errors[6] = true;
+		return (ERROR);
+	}
+	return (SUCCESS);
 }
 
 /*

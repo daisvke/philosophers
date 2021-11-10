@@ -1,2 +1,2 @@
 FLAGS			= -Wall -Wextra -Werror
-THREAD_LINK		= -lpthread
+THREAD_LINK		= -pthread
