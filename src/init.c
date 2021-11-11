@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:35:35 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/10 06:28:18 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/10 18:16:12 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ int	ph_init_fork_array(t_env *env)
 
 ph_init_philo_array(t_env *env)
 {
+	int	philo_nbr;
+
+	philo_nbr = env->philo_nbr;
+	if (!ph_malloc(env->philo, philo_nbr, sizeof(t_philo))
+		return (error);
 }
 
 int	ph_init_env(t_env *env, char *argv[])
@@ -71,7 +76,9 @@ int	ph_init_env(t_env *env, char *argv[])
 	env->sleep_time = ph_convert_str_to_int(argv[4]);
 	if (argc > 5)
 		env->meal_limit = ph_convert_str_to_int(argv[5]);
-	if (ph_init_tid_array(env) == ERROR || ph_init_fork_array(env) == ERROR)
+	if (ph_init_tid_array(env) == ERROR \
+		|| ph_init_fork_array(env) == ERROR \
+		|| ph_init_philo_array(env) == ERROR)
 		return (ERROR);
 	return (SUCCESS);
 }

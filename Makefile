@@ -1,2 +1,4 @@
-FLAGS			= -Wall -Wextra -Werror
-THREAD_LINK		= -pthread
+CC				=	clang -Wall -Wextra -Werror $(FLAGS)
+FLAGS			=	-Wall -Wextra -Werror $(THREADS)
+THREADS			=	-pthread
+MEM				=	-fsanitize=address

@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:24 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/10 05:16:56 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/10 18:14:33 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	ph_free_arrays(t_env *env)
 {
 	env->tid_arr = ft_free(env->tid_arr);
 	env->forks = ft_free(env->forks);
+	env->philo = ft_free(env->philo);
 }
 
 int	main(int argc, char *argv[])

@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:57:32 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/10 05:44:45 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/10 18:50:45 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	**ph_get_array_of_error_messages(char *errors[])
 	errors[4] = "failed to unlock mutex";
 	errors[5] = "failed to join thread";
 	errors[6] = "usleep failed";
+	errors[7] = "gettimeofday failed";
 	return (errors);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/10 06:23:32 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/10 18:49:57 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <bool.h>
 # include <pthread.h>
 # include <stdio.h>
+# include <sys/time.h>
 
 # define OK				0
 # define SUCCESS		0
