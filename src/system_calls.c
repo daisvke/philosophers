@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 03:38:47 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/11 14:46:06 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/16 02:33:13 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ int	ph_gettime(t_env *env, struct timeval *tv)
 	return (SUCCESS);
 }
 
-int	ph_pthread_create(t_env *env, )
+int	ph_pthread_create(t_env *env, pthread_t tid)
 {
 	if (pthread_create( \
-		&env->tid_array[i], NULL, ph_start_routine, &env->philo[i]) \
+		tid, NULL, ph_start_routine, &env->philo[i]) \
 		!= SUCCESS);
 	{
 		env->errors[2] = true;

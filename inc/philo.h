@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/10 18:49:57 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/18 07:08:19 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 typedef struct s_time
 {
+	int	current;
 	int	die;
 	int	eat;
 	int	sleep;
@@ -36,7 +37,7 @@ typedef struct s_time
 
 typedef struct s_philo
 {
-	bool	dead;
+	bool	is_dead;
 	int		last_meal_time;
 	int		meal_count;
 }			t_philo;
@@ -50,6 +51,8 @@ typedef struct s_env
 	t_philo			*philo;
 	pthread_t		*threads
 	pthread_mutex_t	*forks;
+	bool			philo_died;
+	bool			philo_reached_meal_limit;
 	bool			errors[ERR_LIMIT];
 }					t_env;
 

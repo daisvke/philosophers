@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/23 21:07:28 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/18 07:08:19 by dtanigaw         ###   ########.fr       */
+/*   Created: 2021/11/18 06:04:34 by dtanigaw          #+#    #+#             */
+/*   Updated: 2021/11/18 06:17:40 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ph_convert_str_to_int(char *str)
+void	*ph_start_monitor(t_env *env)
 {
-	int	i;
-	int	res;
+	bool	print;
 
-	i = 0;
-	while (str[i])
+	print = true;
+	while (env->philo_died == false)
 	{
-		if (str[i] != '+')
-		{
-			res *= i * 10;
-			res += str[i] - '0';
-		}
+		if (env->philo_reached_meal_limit == true \
+			|| ph_check_if_someone_died(env, print) == true)
+			return (NULL);
 	}
-	return (res);
 }
 
-void	ph_print_msg(t_env *env, int philo_id, )
+int	ph_run_life_monitor(t_env *env)
 {
-	gettimeofday
-	printf("%d", philo_id, msg_content);
+	if (ph_pthread_create( \
+		env, monitor_tid, NULL, ph_start_monitor, env) != SUCCESS)
+		return (ERROR);
+	if (pthread_detach(monitor_tid) != SUCCESS)
+		return (ERROR);
 }
