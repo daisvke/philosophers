@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:35:35 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/19 04:19:53 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/19 04:21:41 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ph_init_errors(t_env *env)
 
 	i = 0;
 	while (i < ERR_LIMIT)
-		env->errors[i] = false;
+		env->errors[i++] = false;
 }
 
 int	ph_init_tid_array(t_env *env)

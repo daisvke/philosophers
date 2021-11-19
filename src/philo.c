@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:17:32 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/19 01:42:46 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/19 04:48:28 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ph_create_threads(t_env *env)
 	{
 		env->curr_id = i;
 		if (ph_pthread_create( \
-			env, env->threads[i], ph_start_routine) != SUCCESS)
+			env, &env->threads[i], ph_start_routine) != SUCCESS)
 		{
 			env->errors[2] = true;
 			return (ERROR);
