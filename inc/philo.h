@@ -6,14 +6,17 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/18 07:08:19 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/19 00:38:13 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <bool.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdbool.h>
+# include <string.h>
 # include <pthread.h>
 # include <stdio.h>
 # include <sys/time.h>
@@ -22,7 +25,7 @@
 # define SUCCESS		0
 # define ERROR			1
 
-# define ERR_LIMIT		3
+# define ERR_LIMIT		8
 
 # define RIGHT			-1
 # define LEFT			1
@@ -49,7 +52,7 @@ typedef struct s_env
 	int				meal_limit;
 	int				curr_id;
 	t_philo			*philo;
-	pthread_t		*threads
+	pthread_t		*threads;
 	pthread_mutex_t	*forks;
 	bool			philo_died;
 	bool			philo_reached_meal_limit;
@@ -59,8 +62,9 @@ typedef struct s_env
 /*
 ** system calls
 */
-void	*ph_malloc(t_ppx *env, size_t nbr, size_t size);
+void	*ph_free(void *data);
 
 int	ph_convert_str_to_int(char *str);
 
+void	*ph_start_routine(void *data);
 #endif

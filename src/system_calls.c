@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 03:38:47 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/16 02:33:13 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/19 04:11:31 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ void	*ph_malloc(t_env *env, size_t nbr, size_t size)
 
 	ptr = (void *)malloc(nbr * size);
 	if (!ptr)
-	{
 		env->errors[1] = true;
-		return (NULL);
-	}
 	return (ptr);
 }
 
@@ -68,7 +65,7 @@ int	ph_usleep(t_env *env, unsigned int msec)
 
 int	ph_gettime(t_env *env, struct timeval *tv)
 {
-	if (gettimeofday(&tv, NULL) != SUCCESS)
+	if (gettimeofday(tv, NULL) != SUCCESS)
 	{
 		env->errors[7] = true;
 		return  (ERROR);
@@ -76,13 +73,23 @@ int	ph_gettime(t_env *env, struct timeval *tv)
 	return (SUCCESS);
 }
 
-int	ph_pthread_create(t_env *env, pthread_t tid)
+int	ph_pthread_create(t_env *env, pthread_t tid, void (*function)(void *))
 {
 	if (pthread_create( \
-		tid, NULL, ph_start_routine, &env->philo[i]) \
-		!= SUCCESS);
+		&tid, NULL, (void *)(function), env) != SUCCESS)
 	{
 		env->errors[2] = true;
 		return (ERROR);
 	}
+	return (SUCCESS);
+}
+
+size_t	ph_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
