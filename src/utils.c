@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:07:28 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/19 00:53:53 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/20 21:55:14 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,14 @@ void	ph_print_msg(t_env *env, int philo_id, )
 	printf("%d", philo_id, msg_content);
 }
 */
+
+size_t	ph_gettimediff(t_env *env, size_t curr_time)
+{
+	size_t	start_time;
+	size_t	time_diff;
+	pthread_mutex_t	mutex;
+
+	start_time = env->time.start;
+	time_diff = curr_time - start_time;
+	return (time_diff);
+}

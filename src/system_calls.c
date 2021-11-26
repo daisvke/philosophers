@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 03:38:47 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/19 04:48:28 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/26 04:13:47 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void ft_usleep(int duration)
 }
 */
 
-int	ph_usleep(t_env *env, unsigned int msec)
+int	ph_usleep(t_env *env, size_t msec)
 {
 	if (usleep(msec * 1000) != SUCCESS)
 	{
@@ -63,13 +63,16 @@ int	ph_usleep(t_env *env, unsigned int msec)
 	return (SUCCESS);
 }
 
-int	ph_gettime(t_env *env, struct timeval *tv)
+int	ph_gettime(t_env *env, size_t *curr_time)
 {
-	if (gettimeofday(tv, NULL) != SUCCESS)
+	struct timeval	tv;
+	
+	if (gettimeofday(&tv, NULL) != SUCCESS)
 	{
 		env->errors[7] = true;
 		return  (ERROR);
 	}
+	*curr_time = tv.tv_usec;
 	return (SUCCESS);
 }
 

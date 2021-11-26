@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:35:35 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/19 04:21:41 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/26 10:00:52 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	ph_init_philo_array(t_env *env)
 	t_philo	**philo;
 	int		philo_nbr;
 	int		i;
+	size_t	curr_time;
 
 	philo = &env->philo;
 	philo_nbr = env->philo_nbr;
@@ -64,10 +65,13 @@ int	ph_init_philo_array(t_env *env)
 	if (!*philo)
 		return (ERROR);
 	i = 0;
+	curr_time = 0;
 	while (i < philo_nbr)
 	{
 		philo[i]->is_dead = false;
-		philo[i]->last_meal_time = 0;
+		if (ph_gettime(env, &curr_time) == ERROR)
+			return (ERROR);
+		philo[i]->last_meal_time = curr_time;
 		philo[i]->meal_count = 0;
 		++i;
 	}
@@ -76,11 +80,14 @@ int	ph_init_philo_array(t_env *env)
 
 int	ph_init_env(t_env *env, int argc, char *argv[])
 {
+	pthread_t	tid;
+
 	memset(env, 0, sizeof(t_env));
 	env->philo_nbr = ph_convert_str_to_int(argv[1]);
 	env->time.die = ph_convert_str_to_int(argv[2]);
 	env->time.eat = ph_convert_str_to_int(argv[3]);
 	env->time.sleep = ph_convert_str_to_int(argv[4]);
+	env->monitor_tid = tid;
 	if (argc > 5)
 		env->meal_limit = ph_convert_str_to_int(argv[5]);
 	if (ph_init_tid_array(env) == ERROR \

@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/19 00:38:13 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/26 09:39:02 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,21 @@
 # define ERR_LIMIT		8
 
 # define RIGHT			-1
-# define LEFT			1
+# define LEFT			0
 
 typedef struct s_time
 {
-	int	current;
-	int	die;
-	int	eat;
-	int	sleep;
-}		t_time;
+	size_t	start;
+	size_t	current;
+	size_t	die;
+	size_t	eat;
+	size_t	sleep;
+}			t_time;
 
 typedef struct s_philo
 {
 	bool	is_dead;
-	int		last_meal_time;
+	size_t	last_meal_time;
 	int		meal_count;
 }			t_philo;
 
@@ -54,6 +55,8 @@ typedef struct s_env
 	t_philo			*philo;
 	pthread_t		*threads;
 	pthread_mutex_t	*forks;
+	pthread_t		monitor_tid;
+	bool			monitor_on;
 	bool			philo_died;
 	bool			philo_reached_meal_limit;
 	bool			errors[ERR_LIMIT];
@@ -63,6 +66,7 @@ typedef struct s_env
 ** system calls
 */
 void	*ph_free(void *data);
+void	*ph_malloc(t_env *env, size_t nbr, size_t size);
 
 int	ph_convert_str_to_int(char *str);
 
