@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 05:46:03 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/26 03:40:07 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/29 08:36:08 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,23 @@ int	ph_hold_fork(t_env *env, int side, int philo_id)
 
 	if (env->philo_died == false)
 	{
-		printf("philo_died is false\n");
 		fork_id = philo_id + side;
-		if (philo_id == 0 && side == RIGHT)
-			fork_id = env->philo_nbr - 1;
-	if (ph_gettime(env, &curr_time) == ERROR)
-		return (true);
-	t = ph_gettimediff(env, curr_time);
-		printf("%ld id : %d, fork_id:%d\n", t/1000, philo_id, fork_id);
+		printf("philo_died is false\n");
 		if (pthread_mutex_lock(&env->forks[fork_id]) != SUCCESS)
 		{
 			printf("lock error fork\n");
 			env->errors[3] = true;
 			return (ERROR);
 		}
+//pthread_mutex_lock(&env->mutex);
+		fork_id = philo_id + side;
+		if (philo_id == 0 && side == RIGHT)
+			fork_id = env->philo_nbr - 1;
+//pthread_mutex_unlock(&env->mutex);
+	if (ph_gettime(env, &curr_time) == ERROR)
+		return (true);
+	t = ph_gettimediff(env, curr_time);
+		printf("%ld id : %d, fork_id:%d\n", t/1000, philo_id, fork_id);
 		printf("%d has taken a fork\n", philo_id);
 	}
 	return (SUCCESS);

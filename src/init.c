@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:35:35 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/26 10:00:52 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/29 08:13:02 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	ph_init_env(t_env *env, int argc, char *argv[])
 	env->time.eat = ph_convert_str_to_int(argv[3]);
 	env->time.sleep = ph_convert_str_to_int(argv[4]);
 	env->monitor_tid = tid;
+	if (pthread_mutex_init(&env->mutex, NULL) != SUCCESS)
+		return (ERROR);
 	if (argc > 5)
 		env->meal_limit = ph_convert_str_to_int(argv[5]);
 	if (ph_init_tid_array(env) == ERROR \

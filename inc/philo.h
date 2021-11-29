@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/26 09:39:02 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/11/29 08:12:12 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_env
 	t_philo			*philo;
 	pthread_t		*threads;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	mutex;
 	pthread_t		monitor_tid;
 	bool			monitor_on;
 	bool			philo_died;
