@@ -14,7 +14,7 @@
 
 void	ph_join_threads(t_env *env)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (i < env->philo_nbr)
@@ -41,16 +41,18 @@ bool	ph_continue_diner(t_env *env)
 
 void	*ph_start_routine(void *data)
 {
-	t_env	*env;
-	int		id;
+	t_env	**env;
+	t_philo	*philo;
+	size_t	id;
 
-	env = (t_env *)data;
-	id = env->curr_id;
-	env->monitor_on = true;
+	env = philo->env;
+	philo = (t_philo *)data;
+	id = philo->id;
+	philo->env->monitor_on = true;
 	printf("start routine for id: %d\n", id);
 	while (ph_continue_diner(env) == true)
 	{
-		if (ph_eat(env, id) == ERROR \
+		if (ph_eat(env, philo) == ERROR \
 			|| ph_usleep(env, env->time.sleep, id) == ERROR)
 		{
 			printf("eat or usleep == error\n");
@@ -71,9 +73,9 @@ int	ph_init_start_time(t_env *env)
 	return (SUCCESS);
 }
 
-int	ph_create_threads(t_env *env)
+int	ph_spawn_philosophers(t_env *env, t_philo *philo_arr)
 {
-	int	i;
+	size_t	i;
 
 	if (ph_init_start_time(env) == ERROR)
 		return (ERROR);
@@ -81,9 +83,9 @@ int	ph_create_threads(t_env *env)
 	while (i < env->philo_nbr)
 	{
 	printf("create thread for id : %d\n", i);
-		env->curr_id = i;
+		philo[i].id = i;
 		if (ph_pthread_create( \
-			env, &env->threads[i], ph_start_routine) != SUCCESS)
+			env, &env->threads[i], ph_start_routine, &philo_arr[i]) != SUCCESS)
 		{
 			env->errors[2] = true;
 			return (ERROR);
@@ -93,10 +95,10 @@ int	ph_create_threads(t_env *env)
 	return (SUCCESS);
 }
 
-int	ph_run_philo(t_env *env)
+int	ph_run_philo(t_env *env, t_philo *philo_arr)
 {
 	if (ph_run_life_monitor(env) == ERROR \
-		|| ph_create_threads(env) == ERROR)
+		|| ph_spawn_philosophers(env, philo_arr) == ERROR)
 		return (ERROR);
 	ph_join_threads(env);
 	return (SUCCESS);

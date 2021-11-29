@@ -14,12 +14,6 @@
 
 #include "inc/philo.h"
 
-typedef struct s_ph
-{
-    size_t id;
-    t_env   *env:
-} t_ph;
-
 typedef struct s_envv
 {
 	size_t id;
@@ -30,22 +24,27 @@ typedef struct s_envv
 	size_t p;
 }		t_envv;
 
+typedef struct s_ph
+{
+    size_t id;
+    t_envv   *envv;
+}		t_ph;
+
 void	*f(t_ph *ph)
 {
-    /*
 	size_t	id;
-id = envv->id;*/
-	printf("n in f: %ld, i = %ld\n", envv->n, envv->id);
+	id = ph->id;
+	printf("n in f: %ld, i = %ld\n", ph->envv->n, ph->envv->id);
 
 //pthread_mutex_lock(&envv->c);
 	if (ph->id >0)
 		ph->id = ph->id - 1;
 	else
-		ph->id = envv->n;
-	pthread_mutex_lock(&envv->forks[id]);
+		ph->id = ph->envv->n;
+	pthread_mutex_lock(&ph->envv->forks[id]);
 //pthread_mutex_unlock(&envv->c);
 	printf("this is the unlocked message from fork n.: %d\n", ph->id);
-	pthread_mutex_unlock(&envv->forks[id]);
+	pthread_mutex_unlock(&ph->envv->forks[id]);
 	return (NULL);
 }
 
@@ -74,7 +73,7 @@ int main()
 		printf("i: %d, n: %d\n", i, envv.n);
 	   ph[i].id = i;
        ph[i].envv=&envv;
-		pthread_create(&envv.tid[i], NULL, (void*)f, &ph[id]);
+		pthread_create(&envv.tid[i], NULL, (void*)f, &ph[i]);
 		printf("thread no %d created\n", i);
 	}
 	for (i=0;i<envv.n;i++)

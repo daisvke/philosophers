@@ -71,10 +71,11 @@ int	ph_wait_until_eating(t_env *env, int philo_id)
 	return (SUCCESS);
 }
 
-int	ph_eat(t_env *env, int philo_id)
+int	ph_eat(t_env *env, t_philo *philo)
 {
-	t_philo	*philo;
+	size_t	philo_id;
 
+	philo_id = philo->id;
 	if (ph_hold_fork(env, RIGHT, philo_id) == ERROR \
 		|| ph_hold_fork(env, LEFT, philo_id) == ERROR \
 		|| ph_wait_until_eating(env, philo_id) == ERROR \
@@ -83,7 +84,6 @@ int	ph_eat(t_env *env, int philo_id)
 		printf("thats an error\n");
 		return (ERROR);
 	}
-	philo = &env->philo[philo_id];
 	++philo->meal_count;
 	ph_check_if_philo_has_reached_meal_limit(env, philo_id);
 	return (SUCCESS);

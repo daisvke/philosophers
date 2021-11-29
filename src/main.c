@@ -14,7 +14,7 @@
 
 bool	ph_is_numeric(char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (str[i])
@@ -29,7 +29,7 @@ bool	ph_is_numeric(char *str)
 
 bool	ph_check_if_args_are_numbers(int argc, char *argv[])
 {
-	int	i;
+	size_t	i;
 
 	i = 1;
 	while (i < argc)
@@ -41,7 +41,7 @@ bool	ph_check_if_args_are_numbers(int argc, char *argv[])
 	return (true);
 }
 
-bool	ph_check_args(int argc, char *argv[])
+bool	ph_check_args(int argc, char *argv[], t_philo *philo_arr)
 {
 	if (argc < 5 || ph_check_if_args_are_numbers(argc, argv) == false)
 		return (ERROR);
@@ -52,21 +52,22 @@ void	ph_free_arrays(t_env *env)
 {
 	env->threads = ph_free(env->threads);
 	env->forks = ph_free(env->forks);
-	env->philo = ph_free(env->philo);
+	philo_arr = ph_free(philo_arr);
 }
 
 int	main(int argc, char *argv[])
 {
 	t_env	env;
+	t_philo	philo_arr;
 	int		res;
 	
 	res = 0;
 	ph_init_errors(&env);
 	if (ph_check_args(argc, argv) != ERROR)
 	{
-		if (ph_init_env(&env, argc, argv) != ERROR)
-			res = ph_run_philo(&env);
-		ph_free_arrays(&env);
+		if (ph_init_env(&env, argc, argv, &philo_arr) != ERROR)
+			res = ph_run_philo(&env, &philo_arr);
+		ph_free_arrays(&env, &philo_arr);
 	}
 	return (res || ph_check_errors(env));
 }

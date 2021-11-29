@@ -52,33 +52,33 @@ int	ph_init_fork_array(t_env *env)
 	return (SUCCESS);
 }
 
-int	ph_init_philo_array(t_env *env)
+int	ph_init_philo_array(t_env *env, t_philo *philo_arr)
 {
-	t_philo	**philo;
 	int		philo_nbr;
 	int		i;
 	size_t	curr_time;
 
-	philo = &env->philo;
 	philo_nbr = env->philo_nbr;
-	*philo = (t_philo *)ph_malloc(env, philo_nbr, sizeof(t_philo));
+	philo_arr = (t_philo *)ph_malloc(env, philo_nbr, sizeof(t_philo));
 	if (!*philo)
 		return (ERROR);
 	i = 0;
 	curr_time = 0;
 	while (i < philo_nbr)
 	{
-		philo[i]->is_dead = false;
+		philo_arr[i].id = 0;
+		philo_arr[i].is_dead = false;
+		philo_arr[i].env = env;
 		if (ph_gettime(env, &curr_time) == ERROR)
 			return (ERROR);
-		philo[i]->last_meal_time = curr_time;
-		philo[i]->meal_count = 0;
+		philo_arr[i].last_meal_time = curr_time;
+		philo_arr[i].meal_count = 0;
 		++i;
 	}
 	return (SUCCESS);
 }
 
-int	ph_init_env(t_env *env, int argc, char *argv[])
+int	ph_init_env(t_env *env, int argc, char *argv[], t_philo *philo_arr)
 {
 	pthread_t	tid;
 
@@ -94,7 +94,7 @@ int	ph_init_env(t_env *env, int argc, char *argv[])
 		env->meal_limit = ph_convert_str_to_int(argv[5]);
 	if (ph_init_tid_array(env) == ERROR \
 		|| ph_init_fork_array(env) == ERROR \
-		|| ph_init_philo_array(env) == ERROR)
+		|| ph_init_philo_array(env, philo_arr) == ERROR)
 		return (ERROR);
 	return (SUCCESS);
 }

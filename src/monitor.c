@@ -25,8 +25,6 @@ void	*ph_start_monitor(void *data)
 		{
 			if (env->philo_reached_meal_limit)
 				printf("npowreachedmeal\n");
-			if (env->philo[0].is_dead)
-				printf("npowisdead\n");
 			if (env->philo_reached_meal_limit == true \
 				|| ph_check_if_someone_died(env, print) == true)
 			{

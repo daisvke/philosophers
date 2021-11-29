@@ -39,20 +39,12 @@ typedef struct s_time
 	size_t	sleep;
 }			t_time;
 
-typedef struct s_philo
-{
-	bool	is_dead;
-	size_t	last_meal_time;
-	int		meal_count;
-}			t_philo;
-
 typedef struct s_env
 {
-	int				philo_nbr;
+	size_t			philo_nbr;
 	t_time			time;
-	int				meal_limit;
-	int				curr_id;
-	t_philo			*philo;
+	size_t			meal_limit;
+	size_t			curr_id;
 	pthread_t		*threads;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	mutex;
@@ -62,6 +54,15 @@ typedef struct s_env
 	bool			philo_reached_meal_limit;
 	bool			errors[ERR_LIMIT];
 }					t_env;
+
+typedef struct s_philo
+{
+	size_t	id;
+	bool	is_dead;
+	t_env	**env;
+	size_t	last_meal_time;
+	size_t	meal_count;
+}			t_philo;
 
 /*
 ** system calls

@@ -76,10 +76,10 @@ int	ph_gettime(t_env *env, size_t *curr_time)
 	return (SUCCESS);
 }
 
-int	ph_pthread_create(t_env *env, pthread_t *tid, void *(f)(void *))
+int	ph_pthread_create(t_env *env, pthread_t *tid, void *(f)(void *), t_philo *philo)
 {
 	if (pthread_create( \
-		tid, NULL, (f), env) != SUCCESS)
+		tid, NULL, (f), philo) != SUCCESS)
 	{
 		env->errors[2] = true;
 		return (ERROR);
