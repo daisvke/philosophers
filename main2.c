@@ -45,11 +45,11 @@ void	init(t_envv *envv)
 
 		printf("in init : n: %d\n",envv->n);
 	envv->forks = malloc(envv->n * sizeof(pthread_mutex_t));
-    int i;
+  	size_t i;
     pthread_mutex_init(&envv->c,NULL);
     for(i=0;i<envv->n;i++)
         pthread_mutex_init(&envv->forks[i],NULL);
-	envv->tid = malloc(envv->n * sizeof(pthread_t));
+envv->tid = malloc(envv->n * sizeof(pthread_t));
 }
 
 int main()
