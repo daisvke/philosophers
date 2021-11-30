@@ -64,9 +64,9 @@ void	*ph_start_routine(void *data)
 	size_t	id;
 	size_t	curr_time;
 
-printf("PHILO_NBR===========================%ld\n",env->philo_nbr );
 	philo = (t_philo *)data;
 	env = philo->env;
+printf("PHILO_NBR===========================%ld\n",env->philo_nbr );
 	id = philo->id;
 	philo->env->monitor_on = true;
 	printf("start routine for id: %d\n", id);

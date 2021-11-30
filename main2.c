@@ -62,23 +62,25 @@ envv->tid = malloc(envv->n * sizeof(pthread_t));
 
 int main()
 {
-	static t_envv	envv;
+	static t_envv	*envv;
 	size_t i =0;
-	envv.n = 3;
     t_ph *ph;
-    ph = malloc(envv.n * sizeof(t_ph));
-	init(&envv);
-	for (i=0;i < envv.n;i++)
+	
+	envv = malloc(sizeof(t_envv));
+	envv->n = 3;
+    ph = malloc(envv->n * sizeof(t_ph));
+	init(envv);
+	for (i=0;i < envv->n;i++)
 	{
-		printf("i: %d, n: %d\n", i, envv.n);
+		printf("i: %d, n: %d\n", i, envv->n);
 	   ph[i].id = i;
-       ph[i].envv=&envv;
-		pthread_create(&envv.tid[i], NULL, (void*)f, &ph[i]);
+       ph[i].envv=envv;
+		pthread_create(&envv->tid[i], NULL, (void*)f, &ph[i]);
 		printf("thread no %d created\n", i);
 	}
-	for (i=0;i<envv.n;i++)
+	for (i=0;i<envv->n;i++)
 	{
-		pthread_join(envv.tid[i], NULL);
+		pthread_join(envv->tid[i], NULL);
 		printf("thread no %d joined\n", i);
 	}
 }
