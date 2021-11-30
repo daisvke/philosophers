@@ -41,14 +41,14 @@ bool	ph_check_if_args_are_numbers(int argc, char *argv[])
 	return (true);
 }
 
-bool	ph_check_args(int argc, char *argv[], t_philo *philo_arr)
+bool	ph_check_args(int argc, char *argv[])
 {
 	if (argc < 5 || ph_check_if_args_are_numbers(argc, argv) == false)
 		return (ERROR);
 	return (OK);
 }
 
-void	ph_free_arrays(t_env *env)
+void	ph_free_arrays(t_env *env, t_philo *philo_arr)
 {
 	env->threads = ph_free(env->threads);
 	env->forks = ph_free(env->forks);

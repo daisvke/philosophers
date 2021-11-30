@@ -59,7 +59,7 @@ typedef struct s_philo
 {
 	size_t	id;
 	bool	is_dead;
-	t_env	**env;
+	t_env	*env;
 	size_t	last_meal_time;
 	size_t	meal_count;
 }			t_philo;

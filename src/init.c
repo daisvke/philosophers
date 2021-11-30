@@ -56,22 +56,17 @@ int	ph_init_philo_array(t_env *env, t_philo *philo_arr)
 {
 	int		philo_nbr;
 	int		i;
-	size_t	curr_time;
 
 	philo_nbr = env->philo_nbr;
 	philo_arr = (t_philo *)ph_malloc(env, philo_nbr, sizeof(t_philo));
-	if (!*philo)
+	if (!philo_arr)
 		return (ERROR);
 	i = 0;
-	curr_time = 0;
 	while (i < philo_nbr)
 	{
 		philo_arr[i].id = 0;
 		philo_arr[i].is_dead = false;
 		philo_arr[i].env = env;
-		if (ph_gettime(env, &curr_time) == ERROR)
-			return (ERROR);
-		philo_arr[i].last_meal_time = curr_time;
 		philo_arr[i].meal_count = 0;
 		++i;
 	}

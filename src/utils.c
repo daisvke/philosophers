@@ -37,7 +37,7 @@ void	ph_print_msg(t_env *env, int philo_id, )
 }
 */
 
-size_t	ph_gettimediff(t_env *env, size_t curr_time)
+size_t	ph_get_diff_between_start_and_curr_time(t_env *env, size_t curr_time)
 {
 	size_t	start_time;
 	size_t	time_diff;

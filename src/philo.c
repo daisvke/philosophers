@@ -32,26 +32,57 @@ void	ph_join_threads(t_env *env)
 
 bool	ph_continue_diner(t_env *env)
 {
-	if (ph_check_if_someone_died(env, false) == false
-		&& env->philo_reached_meal_limit == false)
+	if (env->philo_died == false)
+{
+			printf("=======died false\n");
 		return (true);
+}
+	else
+{
+			printf("=======died true\n");
+		return (false);
+}
+
+	if (env->philo_reached_meal_limit == false)
+{
+			printf("=======reched limit false\n");
+		return (true);
+}
+	else
+{
+			printf("=======reached true\n");
+		return (false);
+}
 	printf("continue diner == false\n");
 	return (false);
 }
 
 void	*ph_start_routine(void *data)
 {
-	t_env	**env;
+	t_env	*env;
 	t_philo	*philo;
 	size_t	id;
+	size_t	curr_time;
 
-	env = philo->env;
+printf("PHILO_NBR===========================%ld\n",env->philo_nbr );
 	philo = (t_philo *)data;
+	env = philo->env;
 	id = philo->id;
 	philo->env->monitor_on = true;
 	printf("start routine for id: %d\n", id);
+	if (ph_run_life_monitor(philo) == ERROR)
+	{
+		// msg failed? or inside functions
+		return (NULL);
+	}
+			printf("==>>>>>=====in %ld\n", id);
+	if (ph_gettime(env, &curr_time) == ERROR)
+		return (NULL);
+	philo->last_meal_time = curr_time;
+printf("lastmealtime: %ld\n", philo->last_meal_time);
 	while (ph_continue_diner(env) == true)
 	{
+			printf("=======in %ld\n", id);
 		if (ph_eat(env, philo) == ERROR \
 			|| ph_usleep(env, env->time.sleep, id) == ERROR)
 		{
@@ -83,7 +114,8 @@ int	ph_spawn_philosophers(t_env *env, t_philo *philo_arr)
 	while (i < env->philo_nbr)
 	{
 	printf("create thread for id : %d\n", i);
-		philo[i].id = i;
+		philo_arr[i].id = i;
+		philo_arr[i].env = env;
 		if (ph_pthread_create( \
 			env, &env->threads[i], ph_start_routine, &philo_arr[i]) != SUCCESS)
 		{
@@ -97,8 +129,9 @@ int	ph_spawn_philosophers(t_env *env, t_philo *philo_arr)
 
 int	ph_run_philo(t_env *env, t_philo *philo_arr)
 {
-	if (ph_run_life_monitor(env) == ERROR \
-		|| ph_spawn_philosophers(env, philo_arr) == ERROR)
+//	if (ph_run_life_monitor(env) == ERROR \
+		|| 
+	if (ph_spawn_philosophers(env, philo_arr) == ERROR)
 		return (ERROR);
 	ph_join_threads(env);
 	return (SUCCESS);

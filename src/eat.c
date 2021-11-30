@@ -12,40 +12,48 @@
 
 #include "philo.h"
 
-int	ph_hold_fork(t_env *env, int side, int philo_id)
+int	ph_hold_fork(t_env *env, t_philo *philo, size_t side, int philo_id)
 {
-	int	fork_id;
+	size_t	fork_id;
 	size_t	t;
 	size_t	curr_time;
 
 	if (env->philo_died == false)
 	{
 		fork_id = philo_id + side;
-		printf("philo_died is false\n");
-		if (pthread_mutex_lock(&env->forks[fork_id]) != SUCCESS)
-		{
-			printf("lock error fork\n");
-			env->errors[3] = true;
-			return (ERROR);
-		}
 //pthread_mutex_lock(&env->mutex);
 		fork_id = philo_id + side;
 		if (philo_id == 0 && side == RIGHT)
 			fork_id = env->philo_nbr - 1;
 //pthread_mutex_unlock(&env->mutex);
+printf("in fork and fork_id: %ld\n", fork_id);
+printf("in fork and side: %ld\n", side);
+printf("in fork and nbr: %ld,    id: %ld\n", env->philo_nbr, philo->id);
+		if (pthread_mutex_lock(&env->forks[fork_id]) != SUCCESS)
+		{
+			env->errors[3] = true;
+			return (ERROR);
+		}
 	if (ph_gettime(env, &curr_time) == ERROR)
 		return (true);
-	t = ph_gettimediff(env, curr_time);
+	t = ph_get_diff_between_start_and_curr_time(env, curr_time);
 		printf("%ld id : %d, fork_id:%d\n", t/1000, philo_id, fork_id);
 		printf("%d has taken a fork\n", philo_id);
+	
+	if (side == LEFT)
+	{
+		if (ph_gettime(env, &curr_time) == ERROR)
+			return (ERROR);
+		philo->last_meal_time = curr_time;
+	}
 	}
 	return (SUCCESS);
 }
 
 int	ph_drop_forks(t_env *env, int philo_id)
 {
-	int	r_fork;
-	int	l_fork;
+	size_t	r_fork;
+	size_t	l_fork;
 
 	if (env->philo_died == false)
 	{
@@ -59,6 +67,7 @@ int	ph_drop_forks(t_env *env, int philo_id)
 			env->errors[4] = true;
 			return (ERROR);
 		}
+		printf("unlocked id : %d, fork_id:%d + %d\n", philo_id, r_fork, l_fork);
 	}
 	return (SUCCESS);
 }
@@ -76,8 +85,8 @@ int	ph_eat(t_env *env, t_philo *philo)
 	size_t	philo_id;
 
 	philo_id = philo->id;
-	if (ph_hold_fork(env, RIGHT, philo_id) == ERROR \
-		|| ph_hold_fork(env, LEFT, philo_id) == ERROR \
+	if (ph_hold_fork(env, philo, RIGHT, philo_id) == ERROR \
+		|| ph_hold_fork(env, philo, LEFT, philo_id) == ERROR \
 		|| ph_wait_until_eating(env, philo_id) == ERROR \
 		|| ph_drop_forks(env, philo_id) == ERROR)
 	{
@@ -85,6 +94,6 @@ int	ph_eat(t_env *env, t_philo *philo)
 		return (ERROR);
 	}
 	++philo->meal_count;
-	ph_check_if_philo_has_reached_meal_limit(env, philo_id);
+	ph_check_if_philo_has_reached_meal_limit(env, philo);
 	return (SUCCESS);
 }
