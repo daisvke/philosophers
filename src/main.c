@@ -58,16 +58,16 @@ void	ph_free_arrays(t_env *env, t_philo *philo_arr)
 int	main(int argc, char *argv[])
 {
 	t_env	env;
-	t_philo	philo_arr;
+	t_philo	*philo_arr;
 	int		res;
 	
 	res = 0;
 	ph_init_errors(&env);
 	if (ph_check_args(argc, argv) != ERROR)
 	{
-		if (ph_init_env(&env, argc, argv, &philo_arr) != ERROR)
-			res = ph_run_philo(&env, &philo_arr);
-		ph_free_arrays(&env, &philo_arr);
+		if (ph_init_env(&env, argc, argv, philo_arr) != ERROR)
+			res = ph_run_philo(&env, philo_arr);
+		ph_free_arrays(&env, philo_arr);
 	}
 	return (res || ph_check_errors(env));
 }

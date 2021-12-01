@@ -66,7 +66,6 @@ void	*ph_start_routine(void *data)
 
 	philo = (t_philo *)data;
 	env = philo->env;
-printf("PHILO_NBR===========================%ld\n",env->philo_nbr );
 	id = philo->id;
 	philo->env->monitor_on = true;
 	printf("start routine for id: %d\n", id);
@@ -75,11 +74,11 @@ printf("PHILO_NBR===========================%ld\n",env->philo_nbr );
 		// msg failed? or inside functions
 		return (NULL);
 	}
-			printf("==>>>>>=====in %ld\n", id);
+	printf("==>>>>>=====in %ld\n", id);
 	if (ph_gettime(env, &curr_time) == ERROR)
 		return (NULL);
 	philo->last_meal_time = curr_time;
-printf("lastmealtime: %ld\n", philo->last_meal_time);
+	printf("lastmealtime: %ld\n", philo->last_meal_time);
 	while (ph_continue_diner(env) == true)
 	{
 			printf("=======in %ld\n", id);
@@ -115,7 +114,7 @@ int	ph_spawn_philosophers(t_env *env, t_philo *philo_arr)
 	{
 	printf("create thread for id : %d\n", i);
 		philo_arr[i].id = i;
-		philo_arr[i].env = env;
+	printf("PHILO_NBR========================%ld\n",philo_arr[i].env->philo_nbr);
 		if (ph_pthread_create( \
 			env, &env->threads[i], ph_start_routine, &philo_arr[i]) != SUCCESS)
 		{

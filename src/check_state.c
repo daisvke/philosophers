@@ -31,7 +31,7 @@ bool	ph_is_dead(t_env *env, t_philo *philo)
 	size_t	time_to_eat;
 	size_t	curr_time;
 	size_t	time_diff;
-	int		time_before_eat;	
+	int		time_before_eat;
 
 	time_to_eat = env->time.eat;
 	curr_time = 0;

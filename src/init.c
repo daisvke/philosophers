@@ -52,22 +52,22 @@ int	ph_init_fork_array(t_env *env)
 	return (SUCCESS);
 }
 
-int	ph_init_philo_array(t_env *env, t_philo *philo_arr)
+int	ph_init_philo_array(t_env *env, t_philo **philo_arr)
 {
-	int		philo_nbr;
-	int		i;
+	size_t	philo_nbr;
+	size_t	i;
 
 	philo_nbr = env->philo_nbr;
-	philo_arr = (t_philo *)ph_malloc(env, philo_nbr, sizeof(t_philo));
-	if (!philo_arr)
+	*philo_arr = (t_philo *)ph_malloc(env, philo_nbr, sizeof(t_philo));
+	if (!*philo_arr)
 		return (ERROR);
 	i = 0;
 	while (i < philo_nbr)
 	{
-		philo_arr[i].id = 0;
-		philo_arr[i].is_dead = false;
-		philo_arr[i].env = env;
-		philo_arr[i].meal_count = 0;
+		(*philo_arr)[i].id = 0;
+		(*philo_arr)[i].is_dead = false;
+		(*philo_arr)[i].env = env;
+		(*philo_arr)[i].meal_count = 0;
 		++i;
 	}
 	return (SUCCESS);
@@ -89,7 +89,7 @@ int	ph_init_env(t_env *env, int argc, char *argv[], t_philo *philo_arr)
 		env->meal_limit = ph_convert_str_to_int(argv[5]);
 	if (ph_init_tid_array(env) == ERROR \
 		|| ph_init_fork_array(env) == ERROR \
-		|| ph_init_philo_array(env, philo_arr) == ERROR)
+		|| ph_init_philo_array(env, &philo_arr) == ERROR)
 		return (ERROR);
 	return (SUCCESS);
 }
