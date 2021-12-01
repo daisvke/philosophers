@@ -65,7 +65,7 @@ int	main(int argc, char *argv[])
 	ph_init_errors(&env);
 	if (ph_check_args(argc, argv) != ERROR)
 	{
-		if (ph_init_env(&env, argc, argv, philo_arr) != ERROR)
+		if (ph_init_env(&env, argc, argv, &philo_arr) != ERROR)
 			res = ph_run_philo(&env, philo_arr);
 		ph_free_arrays(&env, philo_arr);
 	}

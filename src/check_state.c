@@ -43,7 +43,7 @@ bool	ph_is_dead(t_env *env, t_philo *philo)
 	{
 		printf("philo%d is dead\n", philo->id);
 		printf("philo%d lastmealtime:%ld\n", philo->id, philo->last_meal_time);
-		if (env->monitor_on == true)
+		if (philo->monitor_on == true)
 			printf("===>timediff:%ld\n", time_diff / 1000);
 		philo->is_dead = true;
 		return (true);

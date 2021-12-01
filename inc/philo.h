@@ -62,6 +62,7 @@ typedef struct s_philo
 	t_env	*env;
 	size_t	last_meal_time;
 	size_t	meal_count;
+	bool	monitor_on;
 }			t_philo;
 
 /*

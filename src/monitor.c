@@ -25,7 +25,7 @@ void	*ph_start_monitor(void *data)
 	{
 
 		{
-			if (ph_check_if_philo_died(env, philo) == true)
+			if (philo->monitor_on == true && ph_check_if_philo_died(env, philo) == true)
 			{
 	printf("-----------inside monitor if-------------id: %ld\n", philo->id);
 				return (NULL);

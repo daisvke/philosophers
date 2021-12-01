@@ -73,7 +73,7 @@ int	ph_init_philo_array(t_env *env, t_philo **philo_arr)
 	return (SUCCESS);
 }
 
-int	ph_init_env(t_env *env, int argc, char *argv[], t_philo *philo_arr)
+int	ph_init_env(t_env *env, int argc, char *argv[], t_philo **philo_arr)
 {
 	pthread_t	tid;
 
@@ -89,7 +89,7 @@ int	ph_init_env(t_env *env, int argc, char *argv[], t_philo *philo_arr)
 		env->meal_limit = ph_convert_str_to_int(argv[5]);
 	if (ph_init_tid_array(env) == ERROR \
 		|| ph_init_fork_array(env) == ERROR \
-		|| ph_init_philo_array(env, &philo_arr) == ERROR)
+		|| ph_init_philo_array(env, philo_arr) == ERROR)
 		return (ERROR);
 	return (SUCCESS);
 }

@@ -57,6 +57,12 @@ bool	ph_continue_diner(t_env *env)
 	return (false);
 }
 
+int	ph_sleep(t_env *env, t_philo *philo)
+{
+	printf("%ld is sleeping\n", philo->id);
+	ph_usleep(env, env->time.sleep, philo->id);
+}
+
 void	*ph_start_routine(void *data)
 {
 	t_env	*env;
@@ -67,7 +73,6 @@ void	*ph_start_routine(void *data)
 	philo = (t_philo *)data;
 	env = philo->env;
 	id = philo->id;
-	philo->env->monitor_on = true;
 	printf("start routine for id: %d\n", id);
 	if (ph_run_life_monitor(philo) == ERROR)
 	{
@@ -78,16 +83,18 @@ void	*ph_start_routine(void *data)
 	if (ph_gettime(env, &curr_time) == ERROR)
 		return (NULL);
 	philo->last_meal_time = curr_time;
-	printf("lastmealtime: %ld\n", philo->last_meal_time);
+	philo->monitor_on = true;
+	printf("id: %ld    lastmealtime: %ld\n", philo->id, philo->last_meal_time);
 	while (ph_continue_diner(env) == true)
 	{
 			printf("=======in %ld\n", id);
 		if (ph_eat(env, philo) == ERROR \
-			|| ph_usleep(env, env->time.sleep, id) == ERROR)
+			|| ph_sleep(env, philo) == ERROR)
 		{
 			printf("eat or usleep == error\n");
 			break ;
 		}
+		printf("%ld is thinking\n", philo->id);
 	}
 	return (NULL);
 }
