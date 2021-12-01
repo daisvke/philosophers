@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:07:28 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/20 21:55:14 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/01 17:00:36 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,22 @@ int	ph_convert_str_to_int(char *str)
 	return (res);
 }
 
-void	ph_print_msg(t_env *env, t_philo *philo)
+
+	ph_get_msg_content(msg_code);
+
+int	ph_print_msg(t_env *env, t_philo *philo, size_t msg_code)
 {
     size_t  curr_time;
+	char	*msg_content;
 
+	ph_get_msg_content(msg_code);
     if (env->philo_died == false)
     {
         if (ph_gettime(env, &curr_time) == ERROR)
             return (ERROR);
-        printf("%ld %d %s", philo_id, msg_content);
+        printf("%ld %d %s", philo->id, msg_content);
     }
+	return (SUCCESS);
 }
 
 size_t	ph_get_diff_between_start_and_curr_time(t_env *env, size_t curr_time)
