@@ -31,18 +31,22 @@ bool	ph_is_dead(t_env *env, t_philo *philo)
 	size_t	time_to_eat;
 	size_t	curr_time;
 	size_t	time_diff;
-	int		time_before_eat;
+	size_t	deadline_to_eat;
+	size_t	last_meal_time;
 
 	time_to_eat = env->time.eat;
 	curr_time = 0;
 	if (ph_gettime(env, &curr_time) == ERROR)
 		return (true);
 	time_diff = ph_get_diff_between_start_and_curr_time(env, curr_time);
-	time_before_eat = (curr_time / 1000) - time_to_eat;
-	if (time_before_eat > 0 && philo->last_meal_time < time_before_eat)
+	deadline_to_eat = (curr_time / 1000) - time_to_eat;
+	last_meal_time = philo->last_meal_time / 1000;
+printf("time_bef_eat: %ld\n" , deadline_to_eat);
+		printf("philo%d lastmealtime:%ld\n", philo->id, last_meal_time);
+	if (deadline_to_eat > 0 && last_meal_time < deadline_to_eat)
 	{
-		printf("philo%d is dead\n", philo->id);
-		printf("philo%d lastmealtime:%ld\n", philo->id, philo->last_meal_time);
+	printf("==+++++++++++++++===in is_dead\n");
+		printf("philo%d lastmealtime:%ld\n", philo->id, last_meal_time);
 		if (philo->monitor_on == true)
 			printf("===>timediff:%ld\n", time_diff / 1000);
 		philo->is_dead = true;
@@ -53,18 +57,11 @@ bool	ph_is_dead(t_env *env, t_philo *philo)
 
 bool	ph_check_if_philo_died(t_env *env, t_philo *philo)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < env->philo_nbr)
+	if (ph_is_dead(env, philo))
 	{
-		if (ph_is_dead(env, philo))
-		{
-			printf("%i is dead\n", i);
-			env->philo_died = true;
-			return (true);
-		}
-		++i;
+		printf("philo%d is dead\n", philo->id);
+		env->philo_died = true;
+		return (true);
 	}
 	return (false);
 }
