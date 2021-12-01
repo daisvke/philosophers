@@ -41,7 +41,7 @@ bool	ph_is_dead(t_env *env, t_philo *philo)
 	time_diff = ph_get_diff_between_start_and_curr_time(env, curr_time);
 	deadline_to_eat = (curr_time / 1000) - time_to_eat;
 	last_meal_time = philo->last_meal_time / 1000;
-printf("time_bef_eat: %ld\n" , deadline_to_eat);
+printf("deadlineto_eat: %ld\n" , deadline_to_eat);
 		printf("philo%d lastmealtime:%ld\n", philo->id, last_meal_time);
 	if (deadline_to_eat > 0 && last_meal_time < deadline_to_eat)
 	{
