@@ -30,6 +30,13 @@
 # define RIGHT			-1
 # define LEFT			0
 
+# define MSG_TAKE_FORK  0
+# define MSG_EATING     1
+# define MSG_SLEEPING   2
+# define MSG_THINKING   3
+# define MSG_DEATH      4
+
+
 typedef struct s_time
 {
 	size_t	start;
