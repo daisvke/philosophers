@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:07:28 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/01 17:00:36 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/02 23:05:19 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char    **ph_get_msg_array(void)
     msg_arr[MSG_EATING] = "is eating";
     msg_arr[MSG_SLEEPING] = "is sleeping";
     msg_arr[MSG_THINKING] = "is thinking";
-    msg_arr[MSG_DEAD] = "is dead";
+    msg_arr[MSG_DEAD] = "died";
     return (msg_arr);
 }
 
