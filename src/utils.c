@@ -30,23 +30,21 @@ int	ph_convert_str_to_int(char *str)
 	return (res);
 }
 
-char    **ph_get_msg_array(void)
+char    **ph_get_msg_array(char **msg_arr)
 {
-    char    *msg_arr[5];
-
-    msg_arr[MSG_FORK] = "has taken fork";
+    msg_arr[MSG_TAKE_FORK] = "has taken fork";
     msg_arr[MSG_EATING] = "is eating";
     msg_arr[MSG_SLEEPING] = "is sleeping";
     msg_arr[MSG_THINKING] = "is thinking";
-    msg_arr[MSG_DEAD] = "is dead";
+    msg_arr[MSG_DEATH] = "is dead";
     return (msg_arr);
 }
 
 char	*ph_get_msg_content(size_t msg_code)
 {
-    char    *msg_arr;
+    char    *msg_arr[5];
     
-    msg_arr = ph_get_msg_array();
+    ph_get_msg_array(msg_arr);
     return (msg_arr[msg_code]);
 }
 
@@ -56,7 +54,7 @@ int	ph_print_msg(t_env *env, t_philo *philo, size_t msg_code)
 	char	*msg_content;
 
 	msg_content = ph_get_msg_content(msg_code);
-    if (env->philo_died == false || msg_code == MSG_DIED)
+    if (env->philo_died == false || msg_code == MSG_DEATH)
     {
         if (ph_gettime(env, &curr_time) == ERROR)
             return (ERROR);
