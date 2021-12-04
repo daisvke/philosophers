@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 05:46:03 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 05:10:18 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/04 05:54:12 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@ int	ph_hold_fork(t_env *env, t_philo *philo, size_t side, int philo_id)
 	if (env->philo_died == false)
 	{
 		fork_id = philo_id + side;
-//pthread_mutex_lock(&env->mutex);
 		fork_id = philo_id + side;
 		if (philo_id == 0 && side == RIGHT)
 			fork_id = env->philo_nbr - 1;
-//pthread_mutex_unlock(&env->mutex);
 //printf("in fork and fork_id: %ld\n", fork_id);
 //printf("in fork and side: %ld\n", side);
 //printf("in fork and nbr: %ld,    id: %ld\n", env->philo_nbr, philo->id);
@@ -51,20 +49,16 @@ int	ph_drop_forks(t_env *env, int philo_id)
 	size_t	r_fork;
 	size_t	l_fork;
 
-//	if (env->philo_died == false)
-//	{
-		r_fork = philo_id - 1;
-		if (philo_id == 0)
-			r_fork = env->philo_nbr - 1;
-		l_fork = philo_id;
-		if (pthread_mutex_unlock(&env->forks[r_fork]) != SUCCESS \
-			|| pthread_mutex_unlock(&env->forks[l_fork]) != SUCCESS)
-		{
-			env->errors[4] = true;
-			return (ERROR);
-		}
-	//	printf("unlocked id : %d, fork_id:%d + %d\n", philo_id, r_fork, l_fork);
-//	}
+	r_fork = philo_id - 1;
+	if (philo_id == 0)
+		r_fork = env->philo_nbr - 1;
+	l_fork = philo_id;
+	if (pthread_mutex_unlock(&env->forks[r_fork]) != SUCCESS \
+		|| pthread_mutex_unlock(&env->forks[l_fork]) != SUCCESS)
+	{
+		env->errors[4] = true;
+		return (ERROR);
+	}
 	return (SUCCESS);
 }
 
@@ -76,8 +70,15 @@ int	ph_wait_until_eating(t_env *env, t_philo *philo)
 			return (ERROR);
 		if (ph_usleep(env, env->time.eat) == ERROR)
 			return (ERROR);
-		return (SUCCESS);
 	}
+	return (SUCCESS);
+}
+
+int	ph_starve_if_solo_since_cannot_eat_with_one_fork(t_env *env)
+{
+	if (ph_usleep(env, env->time.eat) == ERROR)
+		return (ERROR);
+	return (SUCCESS);
 }
 
 int	ph_eat(t_env *env, t_philo *philo)
@@ -85,14 +86,19 @@ int	ph_eat(t_env *env, t_philo *philo)
 	size_t	philo_id;
 
 	philo_id = philo->id;
-	if (ph_hold_fork(env, philo, RIGHT, philo_id) == ERROR \
-		|| ph_hold_fork(env, philo, LEFT, philo_id) == ERROR \
+	if (ph_hold_fork(env, philo, RIGHT, philo_id) == ERROR)
+		return (ERROR);
+	if (env->philo_nbr == 1)
+	{
+		if (ph_starve_if_solo_since_cannot_eat_with_one_fork(env) == ERROR)
+			return (ERROR);
+		return (SUCCESS);
+	}
+	if ( \
+		ph_hold_fork(env, philo, LEFT, philo_id) == ERROR \
 		|| ph_wait_until_eating(env, philo) == ERROR \
 		|| ph_drop_forks(env, philo_id) == ERROR)
-	{
-		printf("thats an error\n");
 		return (ERROR);
-	}
 	++philo->meal_count;
 	if (env->philo_died == false)
 		ph_check_if_philo_has_reached_meal_limit(env, philo);
