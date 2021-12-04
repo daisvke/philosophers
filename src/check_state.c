@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 06:06:04 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 05:21:38 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/04 08:35:55 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ bool	ph_check_if_philo_has_reached_meal_limit(t_env *env, t_philo *philo)
 	size_t	limit;
 
 	limit = env->meal_limit;
-	if (limit && philo->meal_count == limit)
+	if (limit && philo->meal_count >= limit)
 	{
-		env->philo_reached_meal_limit = true;
-		printf("reached limit\n");
+		philo->reached_meal_limit = true;
 		return (true);
 	}
 	return (false);
@@ -43,10 +42,12 @@ bool	ph_is_dead(t_env *env, t_philo *philo)
 //		printf("philo%d lastmealtime:%ld\n", philo->id, last_meal_time);
 	if (deadline_to_eat > 0 && curr_time > deadline_to_eat)
 	{
+		/*
 printf("deadlineto_eat \t%ld\n" , deadline_to_eat);
 printf("die time: \t%ld\n" , time_to_die);
 printf("curr time: \t%ld\n" , curr_time);
 		printf("philo%d lmt: \t%ld\n", philo->id, last_meal_time);
+*/
 		return (true);
 	}
 	return (false);

@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 05:46:03 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 05:54:12 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/04 08:15:51 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,12 @@ int	ph_wait_until_eating(t_env *env, t_philo *philo)
 	return (SUCCESS);
 }
 
-int	ph_starve_if_solo_since_cannot_eat_with_one_fork(t_env *env)
+int	ph_starve_if_solo_since_cannot_eat_with_one_fork(t_env *env, t_philo *philo)
 {
 	if (ph_usleep(env, env->time.eat) == ERROR)
+		return (ERROR);
+	env->philo_died = true;
+	if (ph_print_msg(env, philo, MSG_DEATH) == ERROR)
 		return (ERROR);
 	return (SUCCESS);
 }
@@ -90,7 +93,8 @@ int	ph_eat(t_env *env, t_philo *philo)
 		return (ERROR);
 	if (env->philo_nbr == 1)
 	{
-		if (ph_starve_if_solo_since_cannot_eat_with_one_fork(env) == ERROR)
+		if (ph_starve_if_solo_since_cannot_eat_with_one_fork( \
+			env, philo) == ERROR)
 			return (ERROR);
 		return (SUCCESS);
 	}

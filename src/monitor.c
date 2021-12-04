@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 06:04:34 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 01:43:37 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/04 08:32:20 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,14 @@ void	*ph_start_monitor(void *data)
 	bool	print;
 
 	philo = (t_philo *)data;
-	printf("-----------start monitor------------id: %ld\n", philo->id);
+//	printf("-----------start monitor------------id: %ld\n", philo->id);
 	env = philo->env;
-	while (env->philo_died == false)
+	while (env->philo_died == false && philo->reached_meal_limit == false)
+	if (philo->monitor_on == true && ph_is_dead(env, philo) == true)
 	{
-		if (philo->monitor_on == true && ph_is_dead(env, philo) == true)
-		{
-			env->philo_died = true;
-			ph_print_msg(env, philo, MSG_DEATH);
-			return (NULL);
-		}
+		env->philo_died = true;
+		ph_print_msg(env, philo, MSG_DEATH);
+		return (NULL);
 	}
 	return (NULL);
 }

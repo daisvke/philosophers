@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 05:16:43 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/04 08:31:05 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ typedef struct s_philo
 {
 	size_t	id;
 	t_env	*env;
+	bool	monitor_on;
 	size_t	last_meal_time;
 	size_t	meal_count;
-	bool	monitor_on;
+	bool	reached_meal_limit;	
 }			t_philo;
 
 /*

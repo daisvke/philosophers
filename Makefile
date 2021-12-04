@@ -9,12 +9,14 @@ RM				=	rm -rf
 SRC_DIR			=	src/
 SRC_FILES		=	check_state.c \
 					eat.c \
-					errors.c \
+					error_handler.c \
 					exit.c \
-					init.c \
+					init_struct.c \
 					main.c \
+					message_center.c \
 					monitor.c \
-					philo.c \
+					philo_routine.c \
+					run_philo.c \
 					system_calls.c \
 					utils.c
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))

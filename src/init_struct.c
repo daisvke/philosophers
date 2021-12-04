@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:35:35 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 05:17:04 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/04 08:35:37 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	ph_init_philo_array(t_env *env, t_philo **philo_arr)
 		(*philo_arr)[i].id = 0;
 		(*philo_arr)[i].env = env;
 		(*philo_arr)[i].meal_count = 0;
+		(*philo_arr)[i].reached_meal_limit = false;
 		++i;
 	}
 	return (SUCCESS);
@@ -81,6 +82,7 @@ int	ph_init_env(t_env *env, int argc, char *argv[], t_philo **philo_arr)
 	env->time.die = ph_convert_str_to_int(argv[2]);
 	env->time.eat = ph_convert_str_to_int(argv[3]);
 	env->time.sleep = ph_convert_str_to_int(argv[4]);
+	env->philo_reached_meal_limit = false;
 	env->lock_print = false;
 	env->monitor_tid = tid;
 	if (pthread_mutex_init(&env->mutex, NULL) != SUCCESS)
