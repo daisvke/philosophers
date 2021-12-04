@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:17:32 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 01:35:05 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/04 05:11:53 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,24 @@ void	ph_join_threads(t_env *env)
 		}
 		++i;
 	}
-	if (pthread_join(env->monitor_tid, NULL) != SUCCESS)
-		env->errors[5] = true;
 }
 
 bool	ph_continue_diner(t_env *env)
 {
-	if (env->philo_died == false || env->philo_reached_meal_limit == false)
+	if (env->philo_died == false && env->philo_reached_meal_limit == false)
 		return (true);
 	return (false);
 }
 
 int	ph_sleep(t_env *env, t_philo *philo)
 {
-	if (ph_print_msg(env, philo, MSG_SLEEPING) == ERROR)
-		return (ERROR);
-	if (ph_usleep(env, env->time.sleep, philo->id) == ERROR)
-		return (ERROR);
+	if (env->philo_died == false)
+	{
+		if (ph_print_msg(env, philo, MSG_SLEEPING) == ERROR)
+			return (ERROR);
+		if (ph_usleep(env, env->time.sleep, philo->id) == ERROR)
+			return (ERROR);
+	}
 	return (SUCCESS);
 }
 
@@ -62,12 +63,10 @@ void	*ph_start_routine(void *data)
 		// msg failed? or inside functions
 		return (NULL);
 	}
-	printf("==>>>>>=====in %ld\n", id);
 	if (ph_gettime(env, &curr_time) == ERROR)
 		return (NULL);
 	philo->last_meal_time = curr_time;
 	philo->monitor_on = true;
-//	printf("id: %ld    lastmealtime: %ld\n", philo->id, philo->last_meal_time);
 	while (ph_continue_diner(env) == true)
 	{
 		if (ph_eat(env, philo) == ERROR \
@@ -90,6 +89,13 @@ int	ph_init_start_time(t_env *env)
 	return (SUCCESS);
 }
 
+int	ph_sleep_to_avoid_initial_conflict_over_forks(t_env *env)
+{
+	if (ph_usleep(env, 10) == ERROR)
+		return (ERROR);
+	return (SUCCESS);
+}
+
 int	ph_spawn_philosophers(t_env *env, t_philo *philo_arr)
 {
 	size_t	i;
@@ -103,10 +109,9 @@ int	ph_spawn_philosophers(t_env *env, t_philo *philo_arr)
 		philo_arr[i].id = i;
 		if (ph_pthread_create( \
 			env, &env->threads[i], ph_start_routine, &philo_arr[i]) != SUCCESS)
-		{
-			env->errors[2] = true;
 			return (ERROR);
-		}
+		if (ph_sleep_to_avoid_initial_conflict_over_forks(env) == ERROR)
+			return (ERROR);
 		++i;
 	}
 	return (SUCCESS);
@@ -114,8 +119,6 @@ int	ph_spawn_philosophers(t_env *env, t_philo *philo_arr)
 
 int	ph_run_philo(t_env *env, t_philo *philo_arr)
 {
-//	if (ph_run_life_monitor(env) == ERROR \
-		|| 
 	if (ph_spawn_philosophers(env, philo_arr) == ERROR)
 		return (ERROR);
 	ph_join_threads(env);

@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 06:06:04 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 02:50:27 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/04 05:21:38 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ bool	ph_is_dead(t_env *env, t_philo *philo)
 //		printf("philo%d lastmealtime:%ld\n", philo->id, last_meal_time);
 	if (deadline_to_eat > 0 && curr_time > deadline_to_eat)
 	{
-printf("deadlineto_eat: %ld\n" , deadline_to_eat);
-printf("die time: %ld\n" , time_to_die);
-printf("curr time: %ld\n" , curr_time);
-		printf("philo%d lastmealtime:%ld\n", philo->id, last_meal_time);
-		philo->is_dead = true;
+printf("deadlineto_eat \t%ld\n" , deadline_to_eat);
+printf("die time: \t%ld\n" , time_to_die);
+printf("curr time: \t%ld\n" , curr_time);
+		printf("philo%d lmt: \t%ld\n", philo->id, last_meal_time);
 		return (true);
 	}
 	return (false);

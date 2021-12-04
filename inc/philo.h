@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/29 08:12:12 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/04 05:16:43 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ typedef struct s_env
 	bool			monitor_on;
 	bool			philo_died;
 	bool			philo_reached_meal_limit;
+	bool			lock_print;
 	bool			errors[ERR_LIMIT];
 }					t_env;
 
 typedef struct s_philo
 {
 	size_t	id;
-	bool	is_dead;
 	t_env	*env;
 	size_t	last_meal_time;
 	size_t	meal_count;

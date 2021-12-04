@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 05:46:03 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 01:39:01 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/04 05:10:18 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	ph_drop_forks(t_env *env, int philo_id)
 	size_t	r_fork;
 	size_t	l_fork;
 
-	if (env->philo_died == false)
-	{
+//	if (env->philo_died == false)
+//	{
 		r_fork = philo_id - 1;
 		if (philo_id == 0)
 			r_fork = env->philo_nbr - 1;
@@ -63,18 +63,21 @@ int	ph_drop_forks(t_env *env, int philo_id)
 			env->errors[4] = true;
 			return (ERROR);
 		}
-		printf("unlocked id : %d, fork_id:%d + %d\n", philo_id, r_fork, l_fork);
-	}
+	//	printf("unlocked id : %d, fork_id:%d + %d\n", philo_id, r_fork, l_fork);
+//	}
 	return (SUCCESS);
 }
 
 int	ph_wait_until_eating(t_env *env, t_philo *philo)
 {
-	if (ph_print_msg(env, philo, MSG_EATING) == ERROR)
-		return (ERROR);
-	if (ph_usleep(env, env->time.eat) == ERROR)
-		return (ERROR);
-	return (SUCCESS);
+	if (env->philo_died == false)
+	{
+		if (ph_print_msg(env, philo, MSG_EATING) == ERROR)
+			return (ERROR);
+		if (ph_usleep(env, env->time.eat) == ERROR)
+			return (ERROR);
+		return (SUCCESS);
+	}
 }
 
 int	ph_eat(t_env *env, t_philo *philo)
@@ -91,6 +94,7 @@ int	ph_eat(t_env *env, t_philo *philo)
 		return (ERROR);
 	}
 	++philo->meal_count;
-	ph_check_if_philo_has_reached_meal_limit(env, philo);
+	if (env->philo_died == false)
+		ph_check_if_philo_has_reached_meal_limit(env, philo);
 	return (SUCCESS);
 }
