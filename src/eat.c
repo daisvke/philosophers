@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 05:46:03 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/29 08:36:08 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/04 01:39:01 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,22 @@ int	ph_hold_fork(t_env *env, t_philo *philo, size_t side, int philo_id)
 		if (philo_id == 0 && side == RIGHT)
 			fork_id = env->philo_nbr - 1;
 //pthread_mutex_unlock(&env->mutex);
-printf("in fork and fork_id: %ld\n", fork_id);
-printf("in fork and side: %ld\n", side);
-printf("in fork and nbr: %ld,    id: %ld\n", env->philo_nbr, philo->id);
+//printf("in fork and fork_id: %ld\n", fork_id);
+//printf("in fork and side: %ld\n", side);
+//printf("in fork and nbr: %ld,    id: %ld\n", env->philo_nbr, philo->id);
 		if (pthread_mutex_lock(&env->forks[fork_id]) != SUCCESS)
 		{
 			env->errors[3] = true;
 			return (ERROR);
 		}
-	if (ph_gettime(env, &curr_time) == ERROR)
-		return (true);
-	t = ph_get_diff_between_start_and_curr_time(env, curr_time);
-		printf("%ld id : %d, fork_id:%d\n", t/1000, philo_id, fork_id);
-		printf("%d has taken a fork\n", philo_id);
-	
-	if (side == LEFT)
-	{
-		if (ph_gettime(env, &curr_time) == ERROR)
+		if (ph_print_msg(env, philo, MSG_TAKE_FORK) == ERROR)
 			return (ERROR);
-		philo->last_meal_time = curr_time;
-	}
+		if (side == LEFT)
+		{
+			if (ph_gettime(env, &curr_time) == ERROR)
+				return (ERROR);
+			philo->last_meal_time = curr_time;
+		}
 	}
 	return (SUCCESS);
 }
@@ -72,9 +68,10 @@ int	ph_drop_forks(t_env *env, int philo_id)
 	return (SUCCESS);
 }
 
-int	ph_wait_until_eating(t_env *env, int philo_id)
+int	ph_wait_until_eating(t_env *env, t_philo *philo)
 {
-	printf("%d is eating\n", philo_id);
+	if (ph_print_msg(env, philo, MSG_EATING) == ERROR)
+		return (ERROR);
 	if (ph_usleep(env, env->time.eat) == ERROR)
 		return (ERROR);
 	return (SUCCESS);
@@ -87,7 +84,7 @@ int	ph_eat(t_env *env, t_philo *philo)
 	philo_id = philo->id;
 	if (ph_hold_fork(env, philo, RIGHT, philo_id) == ERROR \
 		|| ph_hold_fork(env, philo, LEFT, philo_id) == ERROR \
-		|| ph_wait_until_eating(env, philo_id) == ERROR \
+		|| ph_wait_until_eating(env, philo) == ERROR \
 		|| ph_drop_forks(env, philo_id) == ERROR)
 	{
 		printf("thats an error\n");

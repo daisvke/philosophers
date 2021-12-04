@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:35:35 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/29 08:13:02 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/04 02:41:35 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ int	ph_init_env(t_env *env, int argc, char *argv[], t_philo **philo_arr)
 	memset(env, 0, sizeof(t_env));
 	env->philo_nbr = ph_convert_str_to_int(argv[1]);
 	env->time.die = ph_convert_str_to_int(argv[2]);
+	printf("________INIT time die: %ld\n", env->time.die);
 	env->time.eat = ph_convert_str_to_int(argv[3]);
+	printf("________INIT time eat: %ld\n", env->time.eat);
 	env->time.sleep = ph_convert_str_to_int(argv[4]);
 	env->monitor_tid = tid;
 	if (pthread_mutex_init(&env->mutex, NULL) != SUCCESS)

@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 06:04:34 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/20 22:58:23 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/04 01:43:37 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,11 @@ void	*ph_start_monitor(void *data)
 	env = philo->env;
 	while (env->philo_died == false)
 	{
-
+		if (philo->monitor_on == true && ph_is_dead(env, philo) == true)
 		{
-			if (philo->monitor_on == true && ph_check_if_philo_died(env, philo) == true)
-			{
-	printf("-----------inside monitor if-------------id: %ld\n", philo->id);
-				return (NULL);
-			}
+			env->philo_died = true;
+			ph_print_msg(env, philo, MSG_DEATH);
+			return (NULL);
 		}
 	}
 	return (NULL);

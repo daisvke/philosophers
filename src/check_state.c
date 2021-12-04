@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 06:06:04 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/21 11:33:10 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/04 02:50:27 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,39 +28,26 @@ bool	ph_check_if_philo_has_reached_meal_limit(t_env *env, t_philo *philo)
 
 bool	ph_is_dead(t_env *env, t_philo *philo)
 {
-	size_t	time_to_eat;
+	size_t	time_to_die;
 	size_t	curr_time;
 	size_t	time_diff;
 	size_t	deadline_to_eat;
 	size_t	last_meal_time;
 
-	time_to_eat = env->time.eat;
-	curr_time = 0;
+	time_to_die = env->time.die * 1000;
 	if (ph_gettime(env, &curr_time) == ERROR)
 		return (true);
-	time_diff = ph_get_diff_between_start_and_curr_time(env, curr_time);
-	deadline_to_eat = (curr_time / 1000) - time_to_eat;
-	last_meal_time = philo->last_meal_time / 1000;
+//	deadline_to_eat = (curr_time / 1000) - time_to_eat;
+	last_meal_time = philo->last_meal_time;
+	deadline_to_eat = last_meal_time + time_to_die;
+//		printf("philo%d lastmealtime:%ld\n", philo->id, last_meal_time);
+	if (deadline_to_eat > 0 && curr_time > deadline_to_eat)
+	{
 printf("deadlineto_eat: %ld\n" , deadline_to_eat);
+printf("die time: %ld\n" , time_to_die);
+printf("curr time: %ld\n" , curr_time);
 		printf("philo%d lastmealtime:%ld\n", philo->id, last_meal_time);
-	if (deadline_to_eat > 0 && last_meal_time < deadline_to_eat)
-	{
-	printf("==+++++++++++++++===in is_dead\n");
-		printf("philo%d lastmealtime:%ld\n", philo->id, last_meal_time);
-		if (philo->monitor_on == true)
-			printf("===>timediff:%ld\n", time_diff / 1000);
 		philo->is_dead = true;
-		return (true);
-	}
-	return (false);
-}
-
-bool	ph_check_if_philo_died(t_env *env, t_philo *philo)
-{
-	if (ph_is_dead(env, philo))
-	{
-		printf("philo%d is dead\n", philo->id);
-		env->philo_died = true;
 		return (true);
 	}
 	return (false);

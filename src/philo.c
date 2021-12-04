@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:17:32 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/29 08:10:00 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/04 01:35:05 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,35 +32,18 @@ void	ph_join_threads(t_env *env)
 
 bool	ph_continue_diner(t_env *env)
 {
-	if (env->philo_died == false)
-{
-			printf("=======died false\n");
+	if (env->philo_died == false || env->philo_reached_meal_limit == false)
 		return (true);
-}
-	else
-{
-			printf("=======died true\n");
-		return (false);
-}
-
-	if (env->philo_reached_meal_limit == false)
-{
-			printf("=======reched limit false\n");
-		return (true);
-}
-	else
-{
-			printf("=======reached true\n");
-		return (false);
-}
-	printf("continue diner == false\n");
 	return (false);
 }
 
 int	ph_sleep(t_env *env, t_philo *philo)
 {
-	printf("%ld is sleeping\n", philo->id);
-	ph_usleep(env, env->time.sleep, philo->id);
+	if (ph_print_msg(env, philo, MSG_SLEEPING) == ERROR)
+		return (ERROR);
+	if (ph_usleep(env, env->time.sleep, philo->id) == ERROR)
+		return (ERROR);
+	return (SUCCESS);
 }
 
 void	*ph_start_routine(void *data)
@@ -84,17 +67,14 @@ void	*ph_start_routine(void *data)
 		return (NULL);
 	philo->last_meal_time = curr_time;
 	philo->monitor_on = true;
-	printf("id: %ld    lastmealtime: %ld\n", philo->id, philo->last_meal_time);
+//	printf("id: %ld    lastmealtime: %ld\n", philo->id, philo->last_meal_time);
 	while (ph_continue_diner(env) == true)
 	{
-			printf("=======in %ld\n", id);
 		if (ph_eat(env, philo) == ERROR \
 			|| ph_sleep(env, philo) == ERROR)
-		{
-			printf("eat or usleep == error\n");
 			break ;
-		}
-		printf("%ld is thinking\n", philo->id);
+		if (ph_print_msg(env, philo, MSG_THINKING) == ERROR)
+			return (NULL);
 	}
 	return (NULL);
 }
@@ -121,7 +101,6 @@ int	ph_spawn_philosophers(t_env *env, t_philo *philo_arr)
 	{
 	printf("create thread for id : %d\n", i);
 		philo_arr[i].id = i;
-	printf("PHILO_NBR========================%ld\n",philo_arr[i].env->philo_nbr);
 		if (ph_pthread_create( \
 			env, &env->threads[i], ph_start_routine, &philo_arr[i]) != SUCCESS)
 		{
