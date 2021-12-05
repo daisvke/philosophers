@@ -16,7 +16,7 @@ SRC_FILES		=	check_state.c \
 					monitor.c \
 					philo_routine.c \
 					philo_routine_eating.c \
-					run_philo.c \
+					philo_run.c \
 					system_calls.c \
 					system_calls_threads.c \
 					utils.c
