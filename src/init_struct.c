@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:35:35 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 08:35:37 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/05 10:20:09 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ph_init_fork_array(t_env *env)
 	size_t	i;
 
 	philo_nbr = env->philo_nbr;
-	env->forks = (pthread_mutex_t *)ph_malloc( \
+	env->forks = (pthread_mutex_t *)ph_malloc(\
 		env, philo_nbr, sizeof(pthread_mutex_t));
 	if (!env->forks)
 		return (ERROR);

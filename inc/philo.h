@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 08:31:05 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/05 10:31:07 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ int		ph_usleep(t_env *env, size_t msec);
 int		ph_gettime(t_env *env, size_t *curr_time);
 size_t	ph_strlen(const char *s);
 int		ph_pthread_mutex_init(t_env *env, pthread_mutex_t *mutex);
-int		ph_pthread_create(t_env *env, pthread_t *tid, void *(f)(void *), t_philo *philo);
+int		ph_pthread_create(t_env *env, pthread_t *tid, void *(f)(void *), \
+	t_philo *philo);
 int		ph_pthread_join(t_env *env, pthread_t tid);
 int		ph_pthread_mutex_lock(t_env *env, pthread_mutex_t *mutex);
 int		ph_pthread_mutex_unlock(t_env *env, pthread_mutex_t *mutex);

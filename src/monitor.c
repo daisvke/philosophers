@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 06:04:34 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 08:32:20 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/05 10:43:10 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ void	*ph_start_monitor(void *data)
 
 	philo = (t_philo *)data;
 	env = philo->env;
-	while (env->philo_died == false && philo->reached_meal_limit == false
+	while (env->philo_died == false && philo->reached_meal_limit == false \
 		&& env->error_occured_on_some_thread == false)
-	if (philo->monitor_on == true && ph_is_dead(env, philo) == true)
 	{
-		env->philo_died = true;
-		if (env->error_occured_on_some_thread == false)
-			ph_print_msg(env, philo, MSG_DEATH);
-		return (NULL);
+		if (philo->monitor_on == true && ph_is_dead(env, philo) == true)
+		{
+			env->philo_died = true;
+			if (env->error_occured_on_some_thread == false)
+				ph_print_msg(env, philo, MSG_DEATH);
+			return (NULL);
+		}
 	}
 	return (NULL);
 }

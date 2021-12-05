@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 04:50:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/18 21:25:50 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/05 10:20:02 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,3 @@ void	ph_free_arrays(t_env *env, t_philo *philo_arr)
 	env->forks = ph_free(env->forks);
 	philo_arr = ph_free(philo_arr);
 }
-

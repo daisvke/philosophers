@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:17:32 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 08:14:07 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/05 10:28:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ph_spawn_philosophers(t_env *env, t_philo *philo_arr)
 	while (i < env->philo_nbr)
 	{
 		philo_arr[i].id = i;
-		if (ph_pthread_create( \
+		if (ph_pthread_create(\
 			env, &env->threads[i], ph_start_routine, &philo_arr[i]) != SUCCESS)
 			return ;
 		if (ph_sleep_to_avoid_initial_conflict_over_forks(env) == ERROR)

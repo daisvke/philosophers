@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:24 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/11/21 11:12:01 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/05 10:20:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char *argv[])
 {
 	t_env	env;
 	t_philo	*philo_arr;
-	
+
 	ph_init_errors(&env);
 	if (ph_check_args(&env, argc, argv) != ERROR)
 	{
