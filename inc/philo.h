@@ -28,8 +28,8 @@
 # define ERR_LIMIT		11
 
 // FORK SIDES
-# define RIGHT			-1
-# define LEFT			0
+# define F_RIGHT		-1
+# define F_LEFT			0
 
 // MESSAGES
 # define MSG_TAKE_FORK  0
@@ -40,6 +40,12 @@
 
 # define MSG_COLOR_RED		"\033[0;31m"
 # define MSG_COLOR_WHITE	"\033[0;37m"
+
+// ENDING CONDITIONS OF THE SIMULATION
+# define LOCK_PRINT           8
+# define PHILO_DIED           4
+# define PHILO_REACHED_MEAL_LIMIT   2
+# define ERROR_OCCURED_ON_SOME_THREAD   1
 
 // TIME & DURATIONS
 typedef struct s_time
@@ -59,10 +65,7 @@ typedef struct s_env
 	size_t			curr_id;
 	pthread_t		*threads;
 	pthread_mutex_t	*forks;
-	bool			lock_print;
-	bool			philo_died;
-	bool			philo_reached_meal_limit;
-	bool			error_occured_on_some_thread;
+    uint32          
 	bool			errors[ERR_LIMIT];
 }					t_env;
 
