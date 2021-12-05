@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eat.c                                              :+:      :+:    :+:   */
+/*   philo_routine_eating.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,10 +12,9 @@
 
 #include "philo.h"
 
-int	ph_hold_fork(t_env *env, t_philo *philo, size_t side, int philo_id)
+int	ph_hold_fork(t_env *env, t_philo *philo, int side, int philo_id)
 {
 	size_t	fork_id;
-	size_t	t;
 	size_t	curr_time;
 
 	if (env->philo_died == false)

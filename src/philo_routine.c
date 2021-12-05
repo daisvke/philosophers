@@ -26,7 +26,7 @@ int	ph_is_sleeping(t_env *env, t_philo *philo)
 	{
 		if (ph_print_msg(env, philo, MSG_SLEEPING) == ERROR)
 			return (ERROR);
-		if (ph_usleep(env, env->time.sleep, philo->id) == ERROR)
+		if (ph_usleep(env, env->time.sleep) == ERROR)
 			return (ERROR);
 	}
 	return (SUCCESS);
@@ -35,7 +35,8 @@ int	ph_is_sleeping(t_env *env, t_philo *philo)
 int	ph_is_thinking(t_env *env, t_philo *philo)
 {
 	if (ph_print_msg(env, philo, MSG_THINKING) == ERROR)
-	return (ERROR);
+		return (ERROR);
+	return (SUCCESS);
 }
 
 void	*ph_start_routine(void *data)

@@ -16,7 +16,6 @@ void	*ph_start_monitor(void *data)
 {
 	t_env	*env;
 	t_philo	*philo;
-	bool	print;
 
 	philo = (t_philo *)data;
 	env = philo->env;

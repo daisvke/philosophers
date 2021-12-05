@@ -23,3 +23,11 @@ void	ph_destroy_mutex_array(pthread_mutex_t *mutex_arr, int size)
 		++i;
 	}
 }
+
+void	ph_free_arrays(t_env *env, t_philo *philo_arr)
+{
+	env->threads = ph_free(env->threads);
+	env->forks = ph_free(env->forks);
+	philo_arr = ph_free(philo_arr);
+}
+

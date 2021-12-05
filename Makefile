@@ -1,5 +1,5 @@
 NAME			=	philo
-CC				=	clang $(INC) $(THREADS) -g
+CC				=	clang $(INC) $(THREADS) $(WFLAGS) -g
 WFLAGS			=	-Wall -Wextra -Werror
 INC				=	-I inc
 THREADS			=	-pthread
@@ -8,7 +8,6 @@ RM				=	rm -rf
 
 SRC_DIR			=	src/
 SRC_FILES		=	check_state.c \
-					eat.c \
 					error_handler.c \
 					exit.c \
 					init_struct.c \
@@ -16,6 +15,7 @@ SRC_FILES		=	check_state.c \
 					message_center.c \
 					monitor.c \
 					philo_routine.c \
+					philo_routine_eating.c \
 					run_philo.c \
 					system_calls.c \
 					system_calls_threads.c \

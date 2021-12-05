@@ -29,7 +29,6 @@ bool	ph_is_dead(t_env *env, t_philo *philo)
 {
 	size_t	time_to_die;
 	size_t	curr_time;
-	size_t	time_diff;
 	size_t	deadline_to_eat;
 	size_t	last_meal_time;
 

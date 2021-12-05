@@ -44,7 +44,7 @@ void	ph_putstr_fd(char *s, int fd)
 		write(fd, s, ph_strlen(s));
 }
 
-void	ph_print_error_message(t_env env, size_t err_code)
+void	ph_print_error_message(size_t err_code)
 {
 	char	*err_message;
 
@@ -77,7 +77,7 @@ int	ph_print_errors_and_exit(t_env env)
 				ph_putstr_fd("philo:\n", STDERR_FILENO);
 				already_printed = true;
 			}
-			ph_print_error_message(env, err_code);
+			ph_print_error_message(err_code);
 			found_error = true;
 		}
 		++err_code;

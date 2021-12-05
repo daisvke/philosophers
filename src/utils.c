@@ -59,3 +59,18 @@ void	ph_put_nbr_to_stderr(size_t nbr)
 		ph_put_nbr_to_stderr(nbr % 10);
 	}
 }
+
+bool	ph_is_numeric(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != '+' && str[i] != '-' \
+			&& (str[i] < '0' || str[i] > '9'))
+			return (false);
+		++i;
+	}
+	return (true);
+}

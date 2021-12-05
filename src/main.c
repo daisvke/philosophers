@@ -12,24 +12,9 @@
 
 #include "philo.h"
 
-bool	ph_is_numeric(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != '+' && str[i] != '-' \
-			&& (str[i] < '0' || str[i] > '9'))
-			return (false);
-		++i;
-	}
-	return (true);
-}
-
 bool	ph_check_if_args_are_numbers(int argc, char *argv[])
 {
-	size_t	i;
+	int	i;
 
 	i = 1;
 	while (i < argc)
@@ -59,13 +44,6 @@ bool	ph_check_args(t_env *env, int argc, char *argv[])
 	if (found_error == true)
 		return (ERROR);
 	return (OK);
-}
-
-void	ph_free_arrays(t_env *env, t_philo *philo_arr)
-{
-	env->threads = ph_free(env->threads);
-	env->forks = ph_free(env->forks);
-	philo_arr = ph_free(philo_arr);
 }
 
 int	main(int argc, char *argv[])
