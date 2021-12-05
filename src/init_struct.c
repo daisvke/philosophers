@@ -14,7 +14,7 @@
 
 void	ph_init_errors(t_env *env)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (i < ERR_LIMIT)
@@ -23,7 +23,7 @@ void	ph_init_errors(t_env *env)
 
 int	ph_init_tid_array(t_env *env)
 {
-	int	philo_nbr;
+	size_t	philo_nbr;
 
 	philo_nbr = env->philo_nbr;
 	env->threads = (pthread_t *)ph_malloc(env, philo_nbr, sizeof(pthread_t));
@@ -34,8 +34,8 @@ int	ph_init_tid_array(t_env *env)
 
 int	ph_init_fork_array(t_env *env)
 {
-	int	philo_nbr;
-	int	i;
+	size_t	philo_nbr;
+	size_t	i;
 
 	philo_nbr = env->philo_nbr;
 	env->forks = (pthread_mutex_t *)ph_malloc( \
@@ -45,7 +45,7 @@ int	ph_init_fork_array(t_env *env)
 	i = 0;
 	while (i < philo_nbr)
 	{
-		if (pthread_mutex_init(&env->forks[i], NULL) != SUCCESS)
+		if (ph_pthread_mutex_init(env, &env->forks[i]) == ERROR)
 			return (ERROR);
 		++i;
 	}
@@ -75,18 +75,11 @@ int	ph_init_philo_array(t_env *env, t_philo **philo_arr)
 
 int	ph_init_env(t_env *env, int argc, char *argv[], t_philo **philo_arr)
 {
-	pthread_t	tid;
-
 	memset(env, 0, sizeof(t_env));
 	env->philo_nbr = ph_convert_str_to_int(argv[1]);
 	env->time.die = ph_convert_str_to_int(argv[2]);
 	env->time.eat = ph_convert_str_to_int(argv[3]);
 	env->time.sleep = ph_convert_str_to_int(argv[4]);
-	env->philo_reached_meal_limit = false;
-	env->lock_print = false;
-	env->monitor_tid = tid;
-	if (pthread_mutex_init(&env->mutex, NULL) != SUCCESS)
-		return (ERROR);
 	if (argc > 5)
 		env->meal_limit = ph_convert_str_to_int(argv[5]);
 	if (ph_init_tid_array(env) == ERROR \

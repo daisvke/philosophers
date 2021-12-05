@@ -18,6 +18,7 @@ SRC_FILES		=	check_state.c \
 					philo_routine.c \
 					run_philo.c \
 					system_calls.c \
+					system_calls_threads.c \
 					utils.c
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 

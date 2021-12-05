@@ -25,7 +25,7 @@
 # define SUCCESS		0
 # define ERROR			1
 
-# define ERR_LIMIT		8
+# define ERR_LIMIT		10
 
 # define RIGHT			-1
 # define LEFT			0
@@ -36,6 +36,8 @@
 # define MSG_THINKING   3
 # define MSG_DEATH      4
 
+# define MSG_COLOR_RED		"\033[0;31m"
+# define MSG_COLOR_WHITE	"\033[0;37m"
 
 typedef struct s_time
 {
@@ -54,12 +56,10 @@ typedef struct s_env
 	size_t			curr_id;
 	pthread_t		*threads;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	mutex;
-	pthread_t		monitor_tid;
-	bool			monitor_on;
 	bool			philo_died;
 	bool			philo_reached_meal_limit;
 	bool			lock_print;
+	bool			error_occured_on_some_thread;
 	bool			errors[ERR_LIMIT];
 }					t_env;
 

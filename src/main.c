@@ -41,9 +41,22 @@ bool	ph_check_if_args_are_numbers(int argc, char *argv[])
 	return (true);
 }
 
-bool	ph_check_args(int argc, char *argv[])
+bool	ph_check_args(t_env *env, int argc, char *argv[])
 {
-	if (argc < 5 || ph_check_if_args_are_numbers(argc, argv) == false)
+	bool	found_error;
+
+	found_error = false;
+	if (argc < 5)
+	{	
+		env->errors[0] = true;
+		found_error = true;
+	}
+	if (ph_check_if_args_are_numbers(argc, argv) == false)
+	{
+		env->errors[8] = true;
+		found_error = true;
+	}
+	if (found_error == true)
 		return (ERROR);
 	return (OK);
 }
@@ -59,15 +72,13 @@ int	main(int argc, char *argv[])
 {
 	t_env	env;
 	t_philo	*philo_arr;
-	int		res;
 	
-	res = 0;
 	ph_init_errors(&env);
-	if (ph_check_args(argc, argv) != ERROR)
+	if (ph_check_args(&env, argc, argv) != ERROR)
 	{
 		if (ph_init_env(&env, argc, argv, &philo_arr) != ERROR)
-			res = ph_run_philo(&env, philo_arr);
+			ph_run_philo(&env, philo_arr);
 		ph_free_arrays(&env, philo_arr);
 	}
-	return (res || ph_check_errors(env));
+	return (ph_print_errors_and_exit(env));
 }

@@ -54,7 +54,11 @@ int	ph_print_msg(t_env *env, t_philo *philo, size_t msg_code)
             return (ERROR);
 		timestamp_in_ms = timestamp / 1000;
 		philo_id = philo->id + 1;
+		if (msg_code == MSG_DEATH)
+			printf("%s", MSG_COLOR_RED);
         printf("%ld %ld %s\n", timestamp_in_ms, philo_id, msg_content);
+		if (msg_code == MSG_DEATH)
+			printf("%s", MSG_COLOR_WHITE);
     }
 	return (SUCCESS);
 }

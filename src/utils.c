@@ -43,3 +43,19 @@ int	ph_get_diff_between_start_and_curr_time(t_env *env, size_t *time_diff)
 	*time_diff = curr_time - start_time;
 	return (SUCCESS);
 }
+
+void	ph_put_nbr_to_stderr(size_t nbr)
+{
+	size_t	nbr_in_char;
+
+	if (nbr < 10)
+	{
+		nbr_in_char = nbr + '0';
+		write(STDERR_FILENO, &nbr_in_char, 1);
+	}
+	else if (nbr > 9)
+	{
+		ph_put_nbr_to_stderr(nbr / 10);
+		ph_put_nbr_to_stderr(nbr % 10);
+	}
+}
