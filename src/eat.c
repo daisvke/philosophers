@@ -24,15 +24,8 @@ int	ph_hold_fork(t_env *env, t_philo *philo, size_t side, int philo_id)
 		fork_id = philo_id + side;
 		if (philo_id == 0 && side == RIGHT)
 			fork_id = env->philo_nbr - 1;
-//printf("in fork and fork_id: %ld\n", fork_id);
-//printf("in fork and side: %ld\n", side);
-//printf("in fork and nbr: %ld,    id: %ld\n", env->philo_nbr, philo->id);
-		if (pthread_mutex_lock(&env->forks[fork_id]) != SUCCESS)
-		{
-			env->errors[3] = true;
-			return (ERROR);
-		}
-		if (ph_print_msg(env, philo, MSG_TAKE_FORK) == ERROR)
+		if (ph_pthread_mutex_lock(env, &env->forks[fork_id]) \
+			|| ph_print_msg(env, philo, MSG_TAKE_FORK) == ERROR)
 			return (ERROR);
 		if (side == LEFT)
 		{
@@ -53,12 +46,9 @@ int	ph_drop_forks(t_env *env, int philo_id)
 	if (philo_id == 0)
 		r_fork = env->philo_nbr - 1;
 	l_fork = philo_id;
-	if (pthread_mutex_unlock(&env->forks[r_fork]) != SUCCESS \
-		|| pthread_mutex_unlock(&env->forks[l_fork]) != SUCCESS)
-	{
-		env->errors[4] = true;
+	if (ph_pthread_mutex_unlock(env, &env->forks[r_fork]) == ERROR \
+		|| ph_pthread_mutex_unlock(env, &env->forks[l_fork]) == ERROR)
 		return (ERROR);
-	}
 	return (SUCCESS);
 }
 
@@ -84,7 +74,7 @@ int	ph_starve_if_solo_since_cannot_eat_with_one_fork(t_env *env, t_philo *philo)
 	return (SUCCESS);
 }
 
-int	ph_eat(t_env *env, t_philo *philo)
+int	ph_is_eating(t_env *env, t_philo *philo)
 {
 	size_t	philo_id;
 

@@ -22,10 +22,11 @@ char	**ph_get_array_of_error_messages(char *errors[])
 	errors[3] = "Failed to lock mutex";
 	errors[4] = "Failed to unlock mutex";
 	errors[5] = "Failed to join thread";
-	errors[6] = "usleep failed";
-	errors[7] = "gettimeofday failed";
-	errors[8] = "arguments should be numbers";
-	errors[9] = "failed to init mutex";
+	errors[6] = "Usleep failed";
+	errors[7] = "Gettimeofday failed";
+	errors[8] = "Arguments should be numbers";
+	errors[9] = "Failed to init mutex";
+	errors[10] = "Failed to detach thread";
 	return (errors);
 }
 
@@ -85,10 +86,4 @@ int	ph_print_errors_and_exit(t_env env)
 	if (found_error == true)
 		return (ERROR);
 	return (OK);
-}
-
-int	ph_return_and_alert_error(t_env *env)
-{
-	env->error_occured_on_some_thread = true;
-	return (ERROR);
 }

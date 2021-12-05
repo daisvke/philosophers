@@ -17,7 +17,41 @@ int	ph_pthread_create(t_env *env, pthread_t *tid, void *(f)(void *), t_philo *ph
 	if (pthread_create( \
 		tid, NULL, (f), philo) != SUCCESS)
 	{
+		env->error_occured_on_some_thread = true;
 		env->errors[2] = true;
+		return (ERROR);
+	}
+	return (SUCCESS);
+}
+
+int	ph_pthread_join(t_env *env, pthread_t tid)
+{
+	if (pthread_join(tid, NULL) != SUCCESS)
+	{
+		env->error_occured_on_some_thread = true;
+		env->errors[5] = true;
+		return (ERROR);
+	}
+	return (SUCCESS);
+}
+
+int	ph_pthread_mutex_lock(t_env *env, pthread_mutex_t *mutex)
+{
+	if (pthread_mutex_lock(mutex) != SUCCESS)
+	{
+		env->error_occured_on_some_thread = true;
+		env->errors[3] = true;
+		return (ERROR);
+	}
+	return (SUCCESS);
+}
+
+int	ph_pthread_mutex_unlock(t_env *env, pthread_mutex_t *mutex)
+{
+	if (pthread_mutex_unlock(mutex) != SUCCESS)
+	{
+		env->error_occured_on_some_thread = true;
+		env->errors[4] = true;
 		return (ERROR);
 	}
 	return (SUCCESS);

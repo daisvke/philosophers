@@ -19,13 +19,14 @@ void	*ph_start_monitor(void *data)
 	bool	print;
 
 	philo = (t_philo *)data;
-//	printf("-----------start monitor------------id: %ld\n", philo->id);
 	env = philo->env;
-	while (env->philo_died == false && philo->reached_meal_limit == false)
+	while (env->philo_died == false && philo->reached_meal_limit == false
+		&& env->error_occured_on_some_thread == false)
 	if (philo->monitor_on == true && ph_is_dead(env, philo) == true)
 	{
 		env->philo_died = true;
-		ph_print_msg(env, philo, MSG_DEATH);
+		if (env->error_occured_on_some_thread == false)
+			ph_print_msg(env, philo, MSG_DEATH);
 		return (NULL);
 	}
 	return (NULL);
@@ -40,6 +41,9 @@ int	ph_run_life_monitor(t_philo *philo)
 	if (ph_pthread_create(env, &tid, ph_start_monitor, philo) != SUCCESS)
 		return (ERROR);
 	if (pthread_detach(tid) != SUCCESS)
+	{
+		env->errors[10] = true;
 		return (ERROR);
+	}
 	return (SUCCESS);
 }

@@ -19,11 +19,8 @@ void	ph_join_threads(t_env *env)
 	i = 0;
 	while (i < env->philo_nbr)
 	{
-		if (pthread_join(env->threads[i], NULL) != SUCCESS)
-		{
-			env->errors[5] = true;
+		if (ph_pthread_join(env, env->threads[i]) == ERROR)
 			break ;
-		}
 		++i;
 	}
 }
@@ -33,7 +30,7 @@ int	ph_init_start_time(t_env *env)
 	size_t		start_time;
 
 	if (ph_gettime(env, &start_time) == ERROR)
-		return (ph_return_and_alert_error(env));
+		return (ERROR);
 	env->time.start = start_time;
 	return (SUCCESS);
 }
@@ -41,7 +38,7 @@ int	ph_init_start_time(t_env *env)
 int	ph_sleep_to_avoid_initial_conflict_over_forks(t_env *env)
 {
 	if (ph_usleep(env, 10) == ERROR)
-		return (ph_return_and_alert_error(env));
+		return (ERROR);
 	return (SUCCESS);
 }
 

@@ -36,19 +36,9 @@ bool	ph_is_dead(t_env *env, t_philo *philo)
 	time_to_die = env->time.die * 1000;
 	if (ph_gettime(env, &curr_time) == ERROR)
 		return (true);
-//	deadline_to_eat = (curr_time / 1000) - time_to_eat;
 	last_meal_time = philo->last_meal_time;
 	deadline_to_eat = last_meal_time + time_to_die;
-//		printf("philo%d lastmealtime:%ld\n", philo->id, last_meal_time);
 	if (deadline_to_eat > 0 && curr_time > deadline_to_eat)
-	{
-		/*
-printf("deadlineto_eat \t%ld\n" , deadline_to_eat);
-printf("die time: \t%ld\n" , time_to_die);
-printf("curr time: \t%ld\n" , curr_time);
-		printf("philo%d lmt: \t%ld\n", philo->id, last_meal_time);
-*/
 		return (true);
-	}
 	return (false);
 }

@@ -57,6 +57,7 @@ int	ph_usleep(t_env *env, size_t msec)
 {
 	if (usleep(msec * 1000) != SUCCESS)
 	{
+		env->error_occured_on_some_thread = true;
 		env->errors[6] = true;
 		return (ERROR);
 	}
@@ -71,6 +72,7 @@ int	ph_gettime(t_env *env, size_t *curr_time)
 	
 	if (gettimeofday(&tv, NULL) != SUCCESS)
 	{
+		env->error_occured_on_some_thread = true;
 		env->errors[7] = true;
 		return  (ERROR);
 	}

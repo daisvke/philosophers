@@ -45,7 +45,8 @@ int	ph_print_msg(t_env *env, t_philo *philo, size_t msg_code)
 	msg_content = ph_get_msg_content(msg_code);
     if (env->lock_print == false
 		&& ((env->philo_died == false 
-		&& philo->reached_meal_limit == false)
+		&& philo->reached_meal_limit == false
+		&& env->error_occured_on_some_thread == false)
 		|| msg_code == MSG_DEATH))
     {
 		if (msg_code == MSG_DEATH)

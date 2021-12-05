@@ -14,12 +14,13 @@
 
 bool	ph_continue_diner(t_env *env, t_philo *philo)
 {
-	if (env->philo_died == false && philo->reached_meal_limit == false)
+	if (env->philo_died == false && philo->reached_meal_limit == false
+		&& env->error_occured_on_some_thread == false)
 		return (true);
 	return (false);
 }
 
-int	ph_sleep(t_env *env, t_philo *philo)
+int	ph_is_sleeping(t_env *env, t_philo *philo)
 {
 	if (env->philo_died == false)
 	{
@@ -29,6 +30,12 @@ int	ph_sleep(t_env *env, t_philo *philo)
 			return (ERROR);
 	}
 	return (SUCCESS);
+}
+
+int	ph_is_thinking(t_env *env, t_philo *philo)
+{
+	if (ph_print_msg(env, philo, MSG_THINKING) == ERROR)
+	return (ERROR);
 }
 
 void	*ph_start_routine(void *data)
@@ -41,23 +48,18 @@ void	*ph_start_routine(void *data)
 	philo = (t_philo *)data;
 	env = philo->env;
 	id = philo->id;
-//	printf("start routine for id: %d\n", id);
 	if (ph_run_life_monitor(philo) == ERROR)
-	{
-		// msg failed? or inside functions
 		return (NULL);
-	}
 	if (ph_gettime(env, &curr_time) == ERROR)
 		return (NULL);
 	philo->last_meal_time = curr_time;
 	philo->monitor_on = true;
 	while (ph_continue_diner(env, philo) == true)
 	{
-		if (ph_eat(env, philo) == ERROR \
-			|| ph_sleep(env, philo) == ERROR)
+		if (ph_is_eating(env, philo) == ERROR \
+			|| ph_is_sleeping(env, philo) == ERROR \
+			|| ph_is_thinking(env, philo) == ERROR)
 			break ;
-		if (ph_print_msg(env, philo, MSG_THINKING) == ERROR)
-			return (NULL);
 	}
 	return (NULL);
 }

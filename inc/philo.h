@@ -25,7 +25,7 @@
 # define SUCCESS		0
 # define ERROR			1
 
-# define ERR_LIMIT		10
+# define ERR_LIMIT		11
 
 # define RIGHT			-1
 # define LEFT			0
