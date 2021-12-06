@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 05:46:03 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/05 10:29:11 by root             ###   ########.fr       */
+/*   Updated: 2021/12/06 09:38:08 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ph_hold_fork(t_env *env, t_philo *philo, int side, int philo_id)
 		fork_id = philo_id + side;
 		if (philo_id == 0 && side == RIGHT)
 			fork_id = env->philo_nbr - 1;
-		if (ph_pthread_mutex_lock(env, &env->forks[fork_id]) \
+		if (ph_pthread_mutex_lock(env, &env->forks[fork_id]) == ERROR \
 			|| ph_print_msg(env, philo, MSG_TAKE_FORK) == ERROR)
 			return (ERROR);
 		if (side == LEFT)
@@ -65,7 +65,7 @@ int	ph_wait_until_eating(t_env *env, t_philo *philo)
 
 int	ph_starve_if_solo_since_cannot_eat_with_one_fork(t_env *env, t_philo *philo)
 {
-	if (ph_usleep(env, env->time.eat) == ERROR)
+	if (ph_usleep(env, env->time.die) == ERROR)
 		return (ERROR);
 	env->philo_died = true;
 	if (ph_print_msg(env, philo, MSG_DEATH) == ERROR)
