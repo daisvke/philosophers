@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:57:32 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 08:09:41 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/06 11:27:47 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ph_print_error_message(size_t err_code)
 	ph_putstr_fd("\n", STDERR_FILENO);
 }
 
-int	ph_print_errors_and_exit(t_env env)
+int	ph_print_errors_if_any_and_exit(t_env env)
 {
 	size_t	err_code;
 	bool	found_error;

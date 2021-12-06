@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/05 10:31:07 by root             ###   ########.fr       */
+/*   Updated: 2021/12/06 11:27:47 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		ph_init_env(t_env *env, int argc, char *argv[], t_philo **philo_arr);
 ** messages
 */
 int		ph_print_msg(t_env *env, t_philo *philo, size_t msg_code);
-int		ph_print_errors_and_exit(t_env env);
+int		ph_print_errors_if_any_and_exit(t_env env);
 
 /*
 ** monitor
