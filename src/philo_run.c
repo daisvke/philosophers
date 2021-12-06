@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:17:32 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/05 10:51:46 by root             ###   ########.fr       */
+/*   Updated: 2021/12/06 14:03:56 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ph_init_start_time(t_env *env)
 
 int	ph_sleep_to_avoid_initial_conflict_over_forks(t_env *env)
 {
-	if (ph_usleep(env, 10) == ERROR)
+	if (ph_usleep(env, 1) == ERROR)
 		return (ERROR);
 	return (SUCCESS);
 }

@@ -3,7 +3,7 @@ CC				=	clang $(INC) $(THREADS) $(WFLAGS)
 WFLAGS			=	-Wall -Wextra -Werror
 INC				=	-I inc
 THREADS			=	-pthread
-MEM				=	-fsanitize=address -g
+MEM				=	-fsanitize=thread -g
 RM				=	rm -rf
 
 SRC_DIR			=	src/

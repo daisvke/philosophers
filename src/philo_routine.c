@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 08:13:23 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/06 11:32:15 by root             ###   ########.fr       */
+/*   Updated: 2021/12/06 14:11:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ void	*ph_start_routine(void *data)
 	if (ph_gettime(env, &curr_time) == ERROR)
 		return (NULL);
 	philo->last_meal_time = curr_time;
-	if (philo->id + 1 == env->philo_nbr)
-		philo->start_simulation = true;
+	philo->start_simulation = true;
 	while (ph_continue_diner(env, philo) == true)
 	{
 		if (ph_is_eating(env, philo) == ERROR \
