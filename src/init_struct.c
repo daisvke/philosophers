@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:35:35 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/05 10:20:09 by root             ###   ########.fr       */
+/*   Updated: 2021/12/06 11:34:13 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ int	ph_init_philo_array(t_env *env, t_philo **philo_arr)
 	i = 0;
 	while (i < philo_nbr)
 	{
-		(*philo_arr)[i].id = 0;
+		memset(&(*philo_arr)[i], 0, sizeof(t_philo));
 		(*philo_arr)[i].env = env;
-		(*philo_arr)[i].meal_count = 0;
-		(*philo_arr)[i].reached_meal_limit = false;
 		++i;
 	}
 	return (SUCCESS);
