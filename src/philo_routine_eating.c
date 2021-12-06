@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 05:46:03 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/06 09:38:08 by root             ###   ########.fr       */
+/*   Updated: 2021/12/06 10:21:14 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	ph_hold_fork(t_env *env, t_philo *philo, int side, int philo_id)
 
 	if (env->philo_died == false)
 	{
-		fork_id = philo_id + side;
 		fork_id = philo_id + side;
 		if (philo_id == 0 && side == RIGHT)
 			fork_id = env->philo_nbr - 1;
