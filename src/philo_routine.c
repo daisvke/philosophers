@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 08:13:23 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/06 14:11:43 by root             ###   ########.fr       */
+/*   Updated: 2021/12/07 20:06:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	ph_continue_diner(t_env *env, t_philo *philo)
 {
-	if (env->philo_died == false && philo->reached_meal_limit == false
+	if (env->philo_died == false && philo->reached_meal_limit == false \
 		&& env->error_occured_on_some_thread == false)
 		return (true);
 	return (false);
@@ -53,8 +53,12 @@ void	*ph_start_routine(void *data)
 		return (NULL);
 	if (ph_gettime(env, &curr_time) == ERROR)
 		return (NULL);
+	pthread_mutex_lock(&env->locks[LK_LAST_MEAL_TIME]);
 	philo->last_meal_time = curr_time;
+	pthread_mutex_unlock(&env->locks[LK_LAST_MEAL_TIME]);
+	pthread_mutex_lock(&env->locks[LK_START_SIMULATION]);
 	philo->start_simulation = true;
+	pthread_mutex_unlock(&env->locks[LK_START_SIMULATION]);
 	while (ph_continue_diner(env, philo) == true)
 	{
 		if (ph_is_eating(env, philo) == ERROR \

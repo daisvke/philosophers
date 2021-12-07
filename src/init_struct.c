@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:35:35 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/06 11:34:13 by root             ###   ########.fr       */
+/*   Updated: 2021/12/07 10:44:10 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,20 @@ int	ph_init_philo_array(t_env *env, t_philo **philo_arr)
 	return (SUCCESS);
 }
 
+int	ph_init_lock_array(t_env *env)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < LOCK_NBR)
+	{
+		if (ph_pthread_mutex_init(env, &env->locks[i]) == ERROR)
+			return (ERROR);
+		++i;
+	}
+	return (SUCCESS);
+}
+	
 int	ph_init_env(t_env *env, int argc, char *argv[], t_philo **philo_arr)
 {
 	memset(env, 0, sizeof(t_env));
@@ -82,6 +96,7 @@ int	ph_init_env(t_env *env, int argc, char *argv[], t_philo **philo_arr)
 		env->meal_limit = ph_convert_str_to_int(argv[5]);
 	if (ph_init_tid_array(env) == ERROR \
 		|| ph_init_fork_array(env) == ERROR \
+		|| ph_init_lock_array(env) == ERROR \
 		|| ph_init_philo_array(env, philo_arr) == ERROR)
 		return (ERROR);
 	return (SUCCESS);

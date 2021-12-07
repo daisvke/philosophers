@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 05:46:03 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/06 14:12:02 by root             ###   ########.fr       */
+/*   Updated: 2021/12/07 20:06:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ int	ph_hold_fork(t_env *env, t_philo *philo, int side, int philo_id)
 		{
 			if (ph_gettime(env, &curr_time) == ERROR)
 				return (ERROR);
+			pthread_mutex_lock(&env->locks[LK_LAST_MEAL_TIME]);
 			philo->last_meal_time = curr_time;
+			pthread_mutex_unlock(&env->locks[LK_LAST_MEAL_TIME]);
 		}
 	}
 	return (SUCCESS);
@@ -52,13 +54,13 @@ int	ph_drop_forks(t_env *env, int philo_id)
 
 int	ph_wait_until_eating(t_env *env, t_philo *philo)
 {
-	if (env->philo_died == false)
-	{
+//	if (env->philo_died == false)
+//	{
 		if (ph_print_msg(env, philo, MSG_EATING) == ERROR)
 			return (ERROR);
 		if (ph_usleep(env, env->time.eat) == ERROR)
 			return (ERROR);
-	}
+//	}
 	return (SUCCESS);
 }
 
@@ -66,7 +68,9 @@ int	ph_starve_if_solo_since_cannot_eat_with_one_fork(t_env *env, t_philo *philo)
 {
 	if (ph_usleep(env, env->time.die) == ERROR)
 		return (ERROR);
+	pthread_mutex_lock(&env->locks[LK_PHILO_DIED]);
 	env->philo_died = true;
+	pthread_mutex_unlock(&env->locks[LK_PHILO_DIED]);
 	if (ph_print_msg(env, philo, MSG_DEATH) == ERROR)
 		return (ERROR);
 	return (SUCCESS);

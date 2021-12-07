@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/06 11:32:15 by root             ###   ########.fr       */
+/*   Updated: 2021/12/07 12:02:21 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,34 @@
 # include <stdio.h>
 # include <sys/time.h>
 
-# define OK				0
-# define SUCCESS		0
-# define ERROR			1
+# define OK					0
+# define SUCCESS			0
+# define ERROR				1
 
-# define ERR_LIMIT		11
+# define ERR_LIMIT			11
 
 // FORK SIDES
-# define RIGHT			-1
-# define LEFT			0
+# define RIGHT				-1
+# define LEFT				0
 
 // MESSAGES
-# define MSG_TAKE_FORK  0
-# define MSG_EATING     1
-# define MSG_SLEEPING   2
-# define MSG_THINKING   3
-# define MSG_DEATH      4
+# define MSG_TAKE_FORK  	0
+# define MSG_EATING     	1
+# define MSG_SLEEPING   	2
+# define MSG_THINKING   	3
+# define MSG_DEATH      	4
 
 # define MSG_COLOR_RED		"\033[0;31m"
 # define MSG_COLOR_WHITE	"\033[0;37m"
+
+// LOCKS
+# define LOCK_NBR			5
+
+# define LK_LOCK_PRINT		0
+# define LK_PHILO_DIED		1
+# define LK_PRINT_MSG		2
+# define LK_LAST_MEAL_TIME	3
+# define LK_START_SIMULATION	4
 
 // TIME & DURATIONS
 typedef struct s_time
@@ -59,6 +68,7 @@ typedef struct s_env
 	size_t			curr_id;
 	pthread_t		*threads;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	locks[LOCK_NBR];
 	bool			lock_print;
 	bool			philo_died;
 	bool			philo_reached_meal_limit;

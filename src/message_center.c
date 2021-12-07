@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 08:06:12 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/05 10:26:13 by root             ###   ########.fr       */
+/*   Updated: 2021/12/07 20:08:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ char	*ph_get_msg_content(size_t msg_code)
 
 void	ph_lock_death_msg_when_someone_already_died(t_env *env)
 {
+	pthread_mutex_lock(&env->locks[LK_LOCK_PRINT]);
 	env->lock_print = true;
+	pthread_mutex_unlock(&env->locks[LK_LOCK_PRINT]);
 }
 
 int	ph_print_msg(t_env *env, t_philo *philo, size_t msg_code)

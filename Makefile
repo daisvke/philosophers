@@ -1,9 +1,9 @@
 NAME			=	philo
-CC				=	clang $(INC) $(THREADS) $(WFLAGS)
+CC				=	clang $(INC) $(THREADS) $(WFLAGS) -g $(MEM)
 WFLAGS			=	-Wall -Wextra -Werror
 INC				=	-I inc
 THREADS			=	-pthread
-MEM				=	-fsanitize=thread -g
+MEM				=	-fsanitize=thread
 RM				=	rm -rf
 
 SRC_DIR			=	src/

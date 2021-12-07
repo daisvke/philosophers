@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 06:06:04 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 08:35:55 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/07 11:54:41 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ bool	ph_is_dead(t_env *env, t_philo *philo)
 	time_to_die = env->time.die * 1000;
 	if (ph_gettime(env, &curr_time) == ERROR)
 		return (true);
+	pthread_mutex_lock(&env->locks[LK_LAST_MEAL_TIME]);
 	last_meal_time = philo->last_meal_time;
+	pthread_mutex_unlock(&env->locks[LK_LAST_MEAL_TIME]);
 	deadline_to_eat = last_meal_time + time_to_die;
 	if (deadline_to_eat > 0 && curr_time > deadline_to_eat)
 		return (true);
