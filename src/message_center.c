@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 08:06:12 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/07 20:08:52 by root             ###   ########.fr       */
+/*   Updated: 2021/12/08 03:51:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	ph_print_msg(t_env *env, t_philo *philo, size_t msg_code)
 	size_t	timestamp_in_ms;
 	size_t	philo_id;
 
+//	pthread_mutex_lock(&env->locks[LK_PRINT_MSG]);
 	msg_content = ph_get_msg_content(msg_code);
 	if (env->lock_print == false \
 		&& ((env->philo_died == false \
@@ -52,7 +53,7 @@ int	ph_print_msg(t_env *env, t_philo *philo, size_t msg_code)
 		|| msg_code == MSG_DEATH))
 	{
 		if (msg_code == MSG_DEATH)
-			ph_lock_death_msg_when_someone_already_died(env);
+			ph_lock_death_msg_when_someone_already_died(philo->env);
 		if (ph_get_diff_between_start_and_curr_time(env, &timestamp) == ERROR)
 			return (ERROR);
 		timestamp_in_ms = timestamp / 1000;
@@ -63,5 +64,6 @@ int	ph_print_msg(t_env *env, t_philo *philo, size_t msg_code)
 		if (msg_code == MSG_DEATH)
 			printf("%s", MSG_COLOR_WHITE);
 	}
+//	pthread_mutex_unlock(&env->locks[LK_PRINT_MSG]);
 	return (SUCCESS);
 }

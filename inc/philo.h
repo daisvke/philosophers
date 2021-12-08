@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/07 21:22:26 by root             ###   ########.fr       */
+/*   Updated: 2021/12/08 01:23:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,17 @@
 # define MSG_COLOR_WHITE	"\033[0;37m"
 
 // LOCKS
-# define LOCK_NBR			5
+# define LOCK_NBR				9
 
-# define LK_LOCK_PRINT		0
-# define LK_PHILO_DIED		1
-# define LK_PRINT_MSG		2
-# define LK_LAST_MEAL_TIME	3
+# define LK_LOCK_PRINT			0
+# define LK_PHILO_DIED			1
+# define LK_PRINT_MSG			2
+# define LK_LAST_MEAL_TIME		3
 # define LK_START_SIMULATION	4
+# define LK_ERRORS				5
+# define LK_FREE				6
+# define LK_REACHED_MEAL_LIMIT	7
+# define LK_END_CONDITIONS		8
 
 // TIME & DURATIONS
 typedef struct s_time

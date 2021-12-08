@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 06:06:04 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/07 11:54:41 by root             ###   ########.fr       */
+/*   Updated: 2021/12/07 21:52:20 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ bool	ph_check_if_philo_has_reached_meal_limit(t_env *env, t_philo *philo)
 	limit = env->meal_limit;
 	if (limit && philo->meal_count >= limit)
 	{
+		pthread_mutex_lock(&env->locks[LK_REACHED_MEAL_LIMIT]);
 		philo->reached_meal_limit = true;
+		pthread_mutex_unlock(&env->locks[LK_REACHED_MEAL_LIMIT]);
 		return (true);
 	}
 	return (false);
