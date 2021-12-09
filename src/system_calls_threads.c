@@ -6,7 +6,7 @@
 /*   By: root </var/mail/root>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:30:03 by root              #+#    #+#             */
-/*   Updated: 2021/12/09 05:23:30 by root             ###   ########.fr       */
+/*   Updated: 2021/12/10 00:23:39 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,12 @@ int	ph_pthread_create(t_env *env, pthread_t *tid, void *(f)(void *), \
 
 int	ph_pthread_join(t_env *env, pthread_t tid)
 {
-	pthread_mutex_lock(&env->locks[LK_JOIN_THREAD]);
 	if (pthread_join(tid, NULL) != SUCCESS)
 	{
 		env->error_occured_on_some_thread = true;
 		env->errors[5] = true;
 		return (ERROR);
 	}
-	pthread_mutex_unlock(&env->locks[LK_JOIN_THREAD]);
 	return (SUCCESS);
 }
 

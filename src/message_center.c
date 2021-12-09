@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 08:06:12 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/08 07:46:52 by root             ###   ########.fr       */
+/*   Updated: 2021/12/09 23:37:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ int	ph_print_msg(t_env *env, t_philo *philo, size_t msg_code)
 			return (ERROR);
 		timestamp_in_ms = timestamp / 1000;
 		philo_id = philo->id + 1;
-		pthread_mutex_lock(&env->locks[LK_PRINT_MSG]);
+		pthread_mutex_lock(&env->locks[LK_PRINTF]);
 		if (msg_code == MSG_DEATH)
 			printf("%s", MSG_COLOR_RED);
 		printf("%ld %ld %s\n", timestamp_in_ms, philo_id, msg_content);
-		pthread_mutex_unlock(&env->locks[LK_PRINT_MSG]);
 		if (msg_code == MSG_DEATH)
 			printf("%s", MSG_COLOR_WHITE);
+		pthread_mutex_unlock(&env->locks[LK_PRINTF]);
 	}
 	else
 	{	

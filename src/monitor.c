@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 06:04:34 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/09 05:18:45 by root             ###   ########.fr       */
+/*   Updated: 2021/12/09 23:58:25 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,16 @@ void	*ph_start_monitor(void *data)
 	return (NULL);
 }
 
-int	ph_run_life_monitor(t_philo *philo)
+int	ph_run_life_monitor(t_philo *philo, pthread_t *monitor_tid)
 {
 	t_env		*env;
+//	pthread_t	tid;
 
 	env = philo->env;
-	if (ph_pthread_create(env, &env->monitor_tid, ph_start_monitor, philo) == ERROR)
+	if (ph_pthread_create(env, monitor_tid, ph_start_monitor, philo) == ERROR)
 		return (ERROR);
-/*	if (pthread_detach(tid) != SUCCESS)
+		/*
+	if (pthread_detach(tid) != SUCCESS)
 	{
 		env->errors[10] = true;
 		return (ERROR);

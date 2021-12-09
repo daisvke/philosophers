@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/09 05:24:04 by root             ###   ########.fr       */
+/*   Updated: 2021/12/09 23:58:38 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@
 # define ERR_LIMIT			12
 
 // FORK SIDES
-//# define RIGHT				-1
-//# define LEFT				0
 # define FK_RIGHT			0
 # define FK_LEFT			1
 
@@ -55,7 +53,7 @@
 # define LK_FREE				5
 # define LK_REACHED_MEAL_LIMIT	6
 # define LK_END_CONDITIONS		7
-# define LK_PRINT_MSG			8
+# define LK_PRINTF				8
 # define LK_CREATE_THREAD		9
 # define LK_JOIN_THREAD			10
 
@@ -74,8 +72,6 @@ typedef struct s_env
 	size_t			philo_nbr;
 	t_time			time;
 	size_t			meal_limit;
-	size_t			curr_id;
-	pthread_t		monitor_tid;
 	pthread_t		*threads;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	locks[LOCK_NBR];
@@ -127,7 +123,7 @@ int		ph_print_errors_if_any_and_exit(t_env env);
 /*
 ** monitor
 */
-int		ph_run_life_monitor(t_philo *philo);
+int		ph_run_life_monitor(t_philo *philo, pthread_t *monitor_tid);
 bool	ph_check_if_philo_has_reached_meal_limit(t_env *env, t_philo *philo);
 bool	ph_is_dead(t_env *env, t_philo *philo);
 

@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 08:13:23 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/09 05:19:20 by root             ###   ########.fr       */
+/*   Updated: 2021/12/10 00:22:48 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,12 @@ void	*ph_start_routine(void *data)
 	t_philo	*philo;
 	size_t	id;
 	size_t	curr_time;
+	pthread_t	monitor_tid;
 
 	philo = (t_philo *)data;
 	env = philo->env;
 	id = philo->id;
-	if (ph_run_life_monitor(philo) == ERROR)
+	if (ph_run_life_monitor(philo, &monitor_tid) == ERROR)
 		return (NULL);
 	if (ph_gettime(env, &curr_time) == ERROR)
 		return (NULL);
@@ -78,6 +79,6 @@ void	*ph_start_routine(void *data)
 			|| ph_is_thinking(env, philo) == ERROR)
 			break ;
 	}
-	ph_pthread_join(env, env->monitor_tid);
+	ph_pthread_join(env, monitor_tid);
 	return (NULL);
 }
