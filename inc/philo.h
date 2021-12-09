@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/08 01:23:45 by root             ###   ########.fr       */
+/*   Updated: 2021/12/09 05:24:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,14 @@
 # define SUCCESS			0
 # define ERROR				1
 
-# define ERR_LIMIT			11
+# define LIFE_MONITOR		1
+# define ERR_LIMIT			12
 
 // FORK SIDES
-# define RIGHT				-1
-# define LEFT				0
+//# define RIGHT				-1
+//# define LEFT				0
+# define FK_RIGHT			0
+# define FK_LEFT			1
 
 // MESSAGES
 # define MSG_TAKE_FORK  	0
@@ -42,17 +45,19 @@
 # define MSG_COLOR_WHITE	"\033[0;37m"
 
 // LOCKS
-# define LOCK_NBR				9
+# define LOCK_NBR				11
 
 # define LK_LOCK_PRINT			0
 # define LK_PHILO_DIED			1
-# define LK_PRINT_MSG			2
-# define LK_LAST_MEAL_TIME		3
-# define LK_START_SIMULATION	4
-# define LK_ERRORS				5
-# define LK_FREE				6
-# define LK_REACHED_MEAL_LIMIT	7
-# define LK_END_CONDITIONS		8
+# define LK_LAST_MEAL_TIME		2
+# define LK_START_SIMULATION	3
+# define LK_ERRORS				4
+# define LK_FREE				5
+# define LK_REACHED_MEAL_LIMIT	6
+# define LK_END_CONDITIONS		7
+# define LK_PRINT_MSG			8
+# define LK_CREATE_THREAD		9
+# define LK_JOIN_THREAD			10
 
 // TIME & DURATIONS
 typedef struct s_time
@@ -70,6 +75,7 @@ typedef struct s_env
 	t_time			time;
 	size_t			meal_limit;
 	size_t			curr_id;
+	pthread_t		monitor_tid;
 	pthread_t		*threads;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	locks[LOCK_NBR];
@@ -139,11 +145,11 @@ int		ph_convert_str_to_int(char *str);
 int		ph_get_diff_between_start_and_curr_time(t_env *env, size_t *time_diff);
 void	ph_put_nbr_to_stderr(size_t nbr);
 bool	ph_is_numeric(char *str);
+bool	ph_is_impair(size_t nbr);
 
 /*
 ** exit
 */
-void	ph_destroy_mutex_array(pthread_mutex_t *mutex_arr, int size);
-void	ph_free_arrays(t_env *env, t_philo *philo_arr);
+void	ph_clean_arrays(t_env *env, t_philo *philo_arr);
 
 #endif

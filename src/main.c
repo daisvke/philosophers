@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:24 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/07 11:06:56 by root             ###   ########.fr       */
+/*   Updated: 2021/12/08 17:54:35 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int	main(int argc, char *argv[])
 	{
 		if (ph_init_env(&env, argc, argv, &philo_arr) != ERROR)
 			ph_run_philo(&env, philo_arr);
-		ph_free_arrays(&env, philo_arr);
+		ph_clean_arrays(&env, philo_arr);
 	}
+//	usleep(100);
 	return (ph_print_errors_if_any_and_exit(env));
 }

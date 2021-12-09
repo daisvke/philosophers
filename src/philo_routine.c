@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 08:13:23 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/08 04:02:32 by root             ###   ########.fr       */
+/*   Updated: 2021/12/09 05:19:20 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,33 @@
 
 bool	ph_continue_diner(t_env *env, t_philo *philo)
 {
-//	pthread_mutex_lock(&env->locks[LK_END_CONDITIONS]);
 	pthread_mutex_lock(&env->locks[LK_PHILO_DIED]);
+	pthread_mutex_lock(&env->locks[LK_REACHED_MEAL_LIMIT]);
 	if (env->philo_died == false && philo->reached_meal_limit == false \
 		&& env->error_occured_on_some_thread == false)
 	{
-	pthread_mutex_unlock(&env->locks[LK_PHILO_DIED]);
-//	pthread_mutex_unlock(&env->locks[LK_END_CONDITIONS]);
+		pthread_mutex_unlock(&env->locks[LK_REACHED_MEAL_LIMIT]);
+		pthread_mutex_unlock(&env->locks[LK_PHILO_DIED]);
 		return (true);
 	}
+	pthread_mutex_unlock(&env->locks[LK_REACHED_MEAL_LIMIT]);
 	pthread_mutex_unlock(&env->locks[LK_PHILO_DIED]);
-//	pthread_mutex_unlock(&env->locks[LK_END_CONDITIONS]);
 	return (false);
 }
 
 int	ph_is_sleeping(t_env *env, t_philo *philo)
 {
+	pthread_mutex_lock(&env->locks[LK_PHILO_DIED]);
 	if (env->philo_died == false)
 	{
+		pthread_mutex_unlock(&env->locks[LK_PHILO_DIED]);
 		if (ph_print_msg(env, philo, MSG_SLEEPING) == ERROR)
 			return (ERROR);
 		if (ph_usleep(env, env->time.sleep) == ERROR)
 			return (ERROR);
 	}
+	else
+		pthread_mutex_unlock(&env->locks[LK_PHILO_DIED]);
 	return (SUCCESS);
 }
 
@@ -74,5 +78,6 @@ void	*ph_start_routine(void *data)
 			|| ph_is_thinking(env, philo) == ERROR)
 			break ;
 	}
+	ph_pthread_join(env, env->monitor_tid);
 	return (NULL);
 }
