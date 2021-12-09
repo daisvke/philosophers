@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 05:46:03 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/10 00:35:27 by root             ###   ########.fr       */
+/*   Updated: 2021/12/10 00:37:28 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ph_hold_forks(t_env *env, t_philo *philo, size_t *fork_ids)
 		if (ph_starve_if_solo_since_cannot_eat_with_one_fork(\
 			env, philo) == ERROR)
 			return (ERROR);
-		return (SUCCESS);
+		return (ERROR);
 	}
 	ph_hold_a_fork(env, philo, fork_2, true);
 	return (SUCCESS);
