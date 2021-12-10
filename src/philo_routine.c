@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 08:13:23 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/10 00:22:48 by root             ###   ########.fr       */
+/*   Updated: 2021/12/10 03:12:05 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,33 @@
 
 bool	ph_continue_diner(t_env *env, t_philo *philo)
 {
-	pthread_mutex_lock(&env->locks[LK_PHILO_DIED]);
-	pthread_mutex_lock(&env->locks[LK_REACHED_MEAL_LIMIT]);
+	ph_lock_philo_died(env);
+	ph_lock_reached_meal_limit(env);
 	if (env->philo_died == false && philo->reached_meal_limit == false \
 		&& env->error_occured_on_some_thread == false)
 	{
-		pthread_mutex_unlock(&env->locks[LK_REACHED_MEAL_LIMIT]);
-		pthread_mutex_unlock(&env->locks[LK_PHILO_DIED]);
+		ph_unlock_reached_meal_limit(env);
+		ph_unlock_philo_died(env);
 		return (true);
 	}
-	pthread_mutex_unlock(&env->locks[LK_REACHED_MEAL_LIMIT]);
-	pthread_mutex_unlock(&env->locks[LK_PHILO_DIED]);
+	ph_unlock_reached_meal_limit(env);
+	ph_unlock_philo_died(env);
 	return (false);
 }
 
 int	ph_is_sleeping(t_env *env, t_philo *philo)
 {
-	pthread_mutex_lock(&env->locks[LK_PHILO_DIED]);
+	ph_lock_philo_died(env);
 	if (env->philo_died == false)
 	{
-		pthread_mutex_unlock(&env->locks[LK_PHILO_DIED]);
+		ph_unlock_philo_died(env);
 		if (ph_print_msg(env, philo, MSG_SLEEPING) == ERROR)
 			return (ERROR);
 		if (ph_usleep(env, env->time.sleep) == ERROR)
 			return (ERROR);
 	}
 	else
-		pthread_mutex_unlock(&env->locks[LK_PHILO_DIED]);
+		ph_unlock_philo_died(env);
 	return (SUCCESS);
 }
 
@@ -53,11 +53,11 @@ int	ph_is_thinking(t_env *env, t_philo *philo)
 
 void	*ph_start_routine(void *data)
 {
-	t_env	*env;
-	t_philo	*philo;
-	size_t	id;
-	size_t	curr_time;
+	t_env		*env;
+	t_philo		*philo;
 	pthread_t	monitor_tid;
+	size_t		id;
+	size_t		curr_time;
 
 	philo = (t_philo *)data;
 	env = philo->env;
@@ -66,12 +66,12 @@ void	*ph_start_routine(void *data)
 		return (NULL);
 	if (ph_gettime(env, &curr_time) == ERROR)
 		return (NULL);
-	pthread_mutex_lock(&env->locks[LK_LAST_MEAL_TIME]);
+	ph_lock_last_meal_time(env);
 	philo->last_meal_time = curr_time;
-	pthread_mutex_unlock(&env->locks[LK_LAST_MEAL_TIME]);
-	pthread_mutex_lock(&env->locks[LK_START_SIMULATION]);
+	ph_unlock_last_meal_time(env);
+	ph_lock_start_simulation(env);
 	philo->start_simulation = true;
-	pthread_mutex_unlock(&env->locks[LK_START_SIMULATION]);
+	ph_unlock_start_simulation(env);
 	while (ph_continue_diner(env, philo) == true)
 	{
 		if (ph_is_eating(env, philo) == ERROR \

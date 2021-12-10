@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 04:50:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/09 23:36:57 by root             ###   ########.fr       */
+/*   Updated: 2021/12/10 01:01:00 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,20 @@ void	ph_free_arrays(t_env *env, t_philo *philo_arr)
 
 void	ph_destroy_all_mutex(t_env *env)
 {
-	
 	size_t	i;
 
 	i = 0;
 	while (i < LOCK_NBR)
 	{
 		if (pthread_mutex_destroy(&env->locks[i]) != SUCCESS)
-		{printf("==>>lock %ld\n", i);
 			env->errors[11] = true;
-		}
 		++i;
 	}
 	i = 0;
 	while (i < env->philo_nbr)
 	{
 		if (pthread_mutex_destroy(&env->forks[i]) != SUCCESS)
-		{printf("==>>forks %ld\n", i);
-			env->errors[11] = true;
-		}
+			env->errors[12] = true;
 		++i;
 	}
 }

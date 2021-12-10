@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 08:06:12 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/09 23:37:40 by root             ###   ########.fr       */
+/*   Updated: 2021/12/10 03:19:32 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ char	*ph_get_msg_content(size_t msg_code)
 
 void	ph_lock_death_msg_when_someone_already_died(t_env *env)
 {
-	pthread_mutex_lock(&env->locks[LK_LOCK_PRINT]);
+	ph_pthread_mutex_lock(env, &env->locks[LK_LOCK_PRINT]);
 	env->lock_print = true;
-	pthread_mutex_unlock(&env->locks[LK_LOCK_PRINT]);
+	ph_pthread_mutex_unlock(env, &env->locks[LK_LOCK_PRINT]);
 }
 
 int	ph_print_msg(t_env *env, t_philo *philo, size_t msg_code)
@@ -44,9 +44,9 @@ int	ph_print_msg(t_env *env, t_philo *philo, size_t msg_code)
 	size_t	timestamp_in_ms;
 	size_t	philo_id;
 
-	pthread_mutex_lock(&env->locks[LK_LOCK_PRINT]);
-	pthread_mutex_lock(&env->locks[LK_PHILO_DIED]);
-	pthread_mutex_lock(&env->locks[LK_REACHED_MEAL_LIMIT]);
+	ph_pthread_mutex_lock(env, &env->locks[LK_LOCK_PRINT]);
+	ph_pthread_mutex_lock(env, &env->locks[LK_PHILO_DIED]);
+	ph_pthread_mutex_lock(env, &env->locks[LK_REACHED_MEAL_LIMIT]);
 	msg_content = ph_get_msg_content(msg_code);
 	if (env->lock_print == false \
 		&& ((env->philo_died == false \
@@ -54,28 +54,29 @@ int	ph_print_msg(t_env *env, t_philo *philo, size_t msg_code)
 		&& env->error_occured_on_some_thread == false) \
 		|| msg_code == MSG_DEATH))
 	{
-		pthread_mutex_unlock(&env->locks[LK_REACHED_MEAL_LIMIT]);
-		pthread_mutex_unlock(&env->locks[LK_PHILO_DIED]);
-		pthread_mutex_unlock(&env->locks[LK_LOCK_PRINT]);
+		ph_pthread_mutex_unlock(env, &env->locks[LK_REACHED_MEAL_LIMIT]);
+		ph_pthread_mutex_unlock(env, &env->locks[LK_PHILO_DIED]);
+		ph_pthread_mutex_unlock(env, &env->locks[LK_LOCK_PRINT]);
 		if (msg_code == MSG_DEATH)
 			ph_lock_death_msg_when_someone_already_died(env);
 		if (ph_get_diff_between_start_and_curr_time(env, &timestamp) == ERROR)
 			return (ERROR);
 		timestamp_in_ms = timestamp / 1000;
 		philo_id = philo->id + 1;
-		pthread_mutex_lock(&env->locks[LK_PRINTF]);
+		ph_pthread_mutex_lock(env, &env->locks[LK_PRINTF]);
 		if (msg_code == MSG_DEATH)
 			printf("%s", MSG_COLOR_RED);
-		printf("%ld %ld %s\n", timestamp_in_ms, philo_id, msg_content);
+		printf("%3ld\t%3ld\t%s\n", timestamp_in_ms, philo_id, msg_content);
+//		printf("%ld %ld %s\n", timestamp_in_ms, philo_id, msg_content);
 		if (msg_code == MSG_DEATH)
 			printf("%s", MSG_COLOR_WHITE);
-		pthread_mutex_unlock(&env->locks[LK_PRINTF]);
+		ph_pthread_mutex_unlock(env, &env->locks[LK_PRINTF]);
 	}
 	else
 	{	
-		pthread_mutex_unlock(&env->locks[LK_LOCK_PRINT]);
-		pthread_mutex_unlock(&env->locks[LK_REACHED_MEAL_LIMIT]);
-		pthread_mutex_unlock(&env->locks[LK_PHILO_DIED]);
+		ph_pthread_mutex_unlock(env, &env->locks[LK_LOCK_PRINT]);
+		ph_pthread_mutex_unlock(env, &env->locks[LK_REACHED_MEAL_LIMIT]);
+		ph_pthread_mutex_unlock(env, &env->locks[LK_PHILO_DIED]);
 	}
 	return (SUCCESS);
 }

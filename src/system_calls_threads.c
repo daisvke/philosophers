@@ -6,7 +6,7 @@
 /*   By: root </var/mail/root>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:30:03 by root              #+#    #+#             */
-/*   Updated: 2021/12/10 00:23:39 by root             ###   ########.fr       */
+/*   Updated: 2021/12/10 02:08:13 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,16 @@ int	ph_pthread_mutex_init(t_env *env, pthread_mutex_t *mutex)
 int	ph_pthread_create(t_env *env, pthread_t *tid, void *(f)(void *), \
 	t_philo *philo)
 {
-
-	pthread_mutex_lock(&env->locks[LK_CREATE_THREAD]);
+	ph_lock_create_thread(env);
 	if (pthread_create(\
 		tid, NULL, (f), philo) != SUCCESS)
 	{
-		pthread_mutex_unlock(&env->locks[LK_CREATE_THREAD]);
+		ph_unlock_create_thread(env);
 		env->error_occured_on_some_thread = true;
 		env->errors[2] = true;
 		return (ERROR);
 	}
-	pthread_mutex_unlock(&env->locks[LK_CREATE_THREAD]);
+	ph_unlock_create_thread(env);
 	return (SUCCESS);
 }
 

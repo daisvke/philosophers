@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/09 23:58:38 by root             ###   ########.fr       */
+/*   Updated: 2021/12/10 02:42:20 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define ERROR				1
 
 # define LIFE_MONITOR		1
-# define ERR_LIMIT			12
+# define ERR_LIMIT			13
 
 // FORK SIDES
 # define FK_RIGHT			0
@@ -43,19 +43,15 @@
 # define MSG_COLOR_WHITE	"\033[0;37m"
 
 // LOCKS
-# define LOCK_NBR				11
+# define LOCK_NBR				7
 
 # define LK_LOCK_PRINT			0
 # define LK_PHILO_DIED			1
 # define LK_LAST_MEAL_TIME		2
 # define LK_START_SIMULATION	3
-# define LK_ERRORS				4
-# define LK_FREE				5
-# define LK_REACHED_MEAL_LIMIT	6
-# define LK_END_CONDITIONS		7
-# define LK_PRINTF				8
-# define LK_CREATE_THREAD		9
-# define LK_JOIN_THREAD			10
+# define LK_REACHED_MEAL_LIMIT	4
+# define LK_PRINTF				5
+# define LK_CREATE_THREAD		6
 
 // TIME & DURATIONS
 typedef struct s_time
@@ -113,6 +109,28 @@ int		ph_pthread_mutex_unlock(t_env *env, pthread_mutex_t *mutex);
 */
 void	ph_init_errors(t_env *env);
 int		ph_init_env(t_env *env, int argc, char *argv[], t_philo **philo_arr);
+
+/*
+** lock shortcuts
+*/
+int		ph_lock_print(t_env *env);
+int		ph_unlock_print(t_env *env);
+int		ph_lock_philo_died(t_env *env);
+int		ph_unlock_philo_died(t_env *env);
+int		ph_lock_last_meal_time(t_env *env);
+int		ph_unlock_last_meal_time(t_env *env);
+int		ph_lock_start_simulation(t_env *env);
+int		ph_unlock_start_simulation(t_env *env);
+int		ph_lock_reached_meal_limit(t_env *env);
+int		ph_unlock_reached_meal_limit(t_env *env);
+int		ph_lock_printf(t_env *env);
+int		ph_unlock_printf(t_env *env);
+int		ph_lock_create_thread(t_env *env);
+int		ph_unlock_create_thread(t_env *env);
+int		ph_lock_conditions(t_env *env);
+int		ph_unlock_conditions(t_env *env);
+int		ph_lock_conditions_2(t_env *env);
+int		ph_unlock_conditions_2(t_env *env);
 
 /*
 ** messages

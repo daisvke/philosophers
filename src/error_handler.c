@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:57:32 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/08 08:39:20 by root             ###   ########.fr       */
+/*   Updated: 2021/12/10 01:01:00 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void ph_get_array_of_error_messages(char *errors[])
 	errors[8] = "Arguments should be numbers";
 	errors[9] = "Failed to init mutex";
 	errors[10] = "Failed to detach thread";
-	errors[11] = "Failed to destroy mutex";
+	errors[11] = "Failed to destroy lock mutex";
+	errors[12] = "Failed to destroy fork mutex";
 }
 
 char	*ph_get_err_message_from_err_code(size_t err_code)

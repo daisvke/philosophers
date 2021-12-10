@@ -11,6 +11,7 @@ SRC_FILES		=	check_state.c \
 					error_handler.c \
 					exit.c \
 					init_struct.c \
+					lock_shortcuts.c \
 					main.c \
 					message_center.c \
 					monitor.c \
