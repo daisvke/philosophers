@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/10 05:02:52 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/10 10:09:32 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define MSG_DEATH      	4
 
 # define MSG_COLOR_RED		"\033[0;31m"
+# define MSG_COLOR_GREEN	"\033[0;32m"
 # define MSG_COLOR_WHITE	"\033[0;37m"
 
 // LOCKS
@@ -113,6 +114,8 @@ int		ph_init_env(t_env *env, int argc, char *argv[], t_philo **philo_arr);
 /*
 ** lock shortcuts
 */
+int		ph_lock_fork(t_env *env, size_t id);
+int		ph_unlock_fork(t_env *env, size_t id);
 int		ph_lock_print(t_env *env);
 int		ph_unlock_print(t_env *env);
 int		ph_lock_philo_died(t_env *env);
@@ -150,7 +153,11 @@ bool	ph_is_dead(t_env *env, t_philo *philo);
 */
 void	ph_run_philo(t_env *env, t_philo *philo_arr);
 void	*ph_start_routine_philo(void *data);
+bool	ph_continue_diner(t_env *env, t_philo *philo);
 int		ph_is_eating(t_env *env, t_philo *philo);
+int		ph_starve_if_solo_since_cannot_eat_with_one_fork(\
+	t_env *env, t_philo *philo);
+void	ph_get_forks_id(t_philo *philo, size_t *fork_ids);
 
 /*
 ** utils
