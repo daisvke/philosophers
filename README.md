@@ -1,6 +1,6 @@
 # philosophers
 
-In this project we propose a solution written in C for the [Dining philosophers problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem).
+In this project we propose a solution of the [Dining philosophers problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem).
 
 ### Description
 
