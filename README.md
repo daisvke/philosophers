@@ -45,5 +45,5 @@ of a philosopher
 * All system call errors are handled and are printed on the terminal.
 
 <p align="center">
-<img src=./screenshot/simulation.png width="40%" />
+<img src=./screenshot/simulation.png width="20%" />
 </p>
