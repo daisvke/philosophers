@@ -1,5 +1,5 @@
 NAME			=	philo
-CC				=	clang $(INC) $(THREADS) $(WFLAGS) -g3 $(MEM) 
+CC				=	clang $(INC) $(THREADS) $(WFLAGS) -g3
 WFLAGS			=	-Wall -Wextra -Werror
 INC				=	-I inc
 THREADS			=	-pthread
@@ -11,7 +11,11 @@ SRC_FILES		=	check_state.c \
 					error_handler.c \
 					exit.c \
 					init_struct.c \
-					lock_shortcuts.c \
+					lock_shortcuts_1.c \
+					lock_shortcuts_2.c \
+					lock_shortcuts_3.c \
+					lock_shortcuts_4.c \
+					lock_shortcuts_5.c \
 					main.c \
 					message_center.c \
 					monitor.c \

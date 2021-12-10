@@ -6,13 +6,13 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:57:32 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/10 01:01:00 by root             ###   ########.fr       */
+/*   Updated: 2021/12/10 10:13:56 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void ph_get_array_of_error_messages(char *errors[])
+void	ph_get_array_of_error_messages(char *errors[])
 {
 	errors[0] = "Usage: ./philo [number of philosophers] [time to die]" \
 		" [time to eat] [time to sleep]" \

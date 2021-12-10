@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:24 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/09 23:42:01 by root             ###   ########.fr       */
+/*   Updated: 2021/12/10 10:13:56 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,15 @@ bool	ph_check_args(t_env *env, int argc, char *argv[])
 	if (found_error == true)
 		return (ERROR);
 	return (OK);
+}
+
+void	ph_init_errors(t_env *env)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < ERR_LIMIT)
+		env->errors[i++] = false;
 }
 
 int	main(int argc, char *argv[])

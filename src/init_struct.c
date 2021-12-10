@@ -6,20 +6,11 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:35:35 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/09 03:05:51 by root             ###   ########.fr       */
+/*   Updated: 2021/12/10 10:13:56 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	ph_init_errors(t_env *env)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < ERR_LIMIT)
-		env->errors[i++] = false;
-}
 
 int	ph_init_tid_array(t_env *env)
 {
@@ -84,7 +75,7 @@ int	ph_init_lock_array(t_env *env)
 	}
 	return (SUCCESS);
 }
-	
+
 int	ph_init_env(t_env *env, int argc, char *argv[], t_philo **philo_arr)
 {
 	memset(env, 0, sizeof(t_env));

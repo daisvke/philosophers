@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/10 10:09:32 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/10 10:13:56 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int		ph_pthread_mutex_unlock(t_env *env, pthread_mutex_t *mutex);
 /*
 ** init struct
 */
-void	ph_init_errors(t_env *env);
 int		ph_init_env(t_env *env, int argc, char *argv[], t_philo **philo_arr);
 
 /*
