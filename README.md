@@ -33,6 +33,7 @@ philosophers eat at least ’number_of_times_each_philosopher_must_eat’ the
 simulation will stop. If not specified, the simulation will stop only at the death
 of a philosopher
 
+<img src=./screenshot/simulation.png align=center />
 ### Return & Errors
 
 * Any change of status of a philosopher is written as follows (with X replaced with the philosopher number and timestamp_in_ms the current timestamp in milliseconds):
