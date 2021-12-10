@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 01:17:36 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/10 03:21:23 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/10 04:48:18 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,4 +141,3 @@ int	ph_unlock_conditions_2(t_env *env)
 		return (ERROR);
 	return (SUCCESS);
 }
-

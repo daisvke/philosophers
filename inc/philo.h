@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/10 02:42:20 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/10 05:02:52 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ bool	ph_is_dead(t_env *env, t_philo *philo);
 ** philo
 */
 void	ph_run_philo(t_env *env, t_philo *philo_arr);
-void	*ph_start_routine(void *data);
+void	*ph_start_routine_philo(void *data);
 int		ph_is_eating(t_env *env, t_philo *philo);
 
 /*
