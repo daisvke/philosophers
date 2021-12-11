@@ -6,7 +6,7 @@
 /*   By: root </var/mail/root>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:30:03 by root              #+#    #+#             */
-/*   Updated: 2021/12/10 02:08:13 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/11 03:56:18 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ph_pthread_mutex_init(t_env *env, pthread_mutex_t *mutex)
 {
 	if (pthread_mutex_init(mutex, NULL) != SUCCESS)
 	{
+		env->error_occured_on_some_thread = true;
 		env->errors[9] = true;
 		return (ERROR);
 	}

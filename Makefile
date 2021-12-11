@@ -1,5 +1,5 @@
 NAME			=	philo
-CC				=	clang $(INC) $(THREADS) $(WFLAGS) -g3
+CC				=	clang $(INC) $(THREADS) $(WFLAGS) -g3 $(MEM) 
 WFLAGS			=	-Wall -Wextra -Werror
 INC				=	-I inc
 THREADS			=	-pthread

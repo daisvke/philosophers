@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:17:32 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/10 05:02:52 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/11 07:08:35 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,20 @@ int	ph_init_start_time(t_env *env)
 
 int	ph_sleep_to_avoid_initial_conflict_over_forks(t_env *env)
 {
+	/*
 	if (ph_usleep(env, 1) == ERROR)
 		return (ERROR);
-	return (SUCCESS);
+	return (SUCCESS);*/
+		env->error_occured_on_some_thread = true;
+		return (ERROR);
 }
 
-void	ph_spawn_philosophers(t_env *env, t_philo *philo_arr)
+int	ph_spawn_philosophers(t_env *env, t_philo *philo_arr)
 {
 	size_t	i;
 
 	if (ph_init_start_time(env) == ERROR)
-		return ;
+		return (ERROR);
 	i = 0;
 	while (i < env->philo_nbr)
 	{
@@ -56,15 +59,17 @@ void	ph_spawn_philosophers(t_env *env, t_philo *philo_arr)
 			env, &env->threads[i], \
 			ph_start_routine_philo, \
 			&philo_arr[i]) != SUCCESS)
-			return ;
+			return (ERROR);
 		if (ph_sleep_to_avoid_initial_conflict_over_forks(env) == ERROR)
-			return ;
+			return (ERROR);
 		++i;
 	}
+	return (SUCCESS);
 }
 
 void	ph_run_philo(t_env *env, t_philo *philo_arr)
 {
-	ph_spawn_philosophers(env, philo_arr);
-	ph_join_threads(env);
+	if (ph_spawn_philosophers(env, philo_arr) == ERROR)
+		return ;
+	ph_join_threads(env); 
 }
