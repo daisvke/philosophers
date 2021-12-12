@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 08:49:17 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/10 10:12:22 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/12 03:23:13 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ph_get_forks_id(t_philo *philo, size_t *fork_ids)
 		fork_ids[FK_RIGHT] = env->philo_nbr - 1;
 	fork_ids[FK_LEFT] = philo_id;
 	philo_id = philo->id;
-	if (ph_is_impair(philo_id) == true)
+	if (ph_is_impair(philo_id + 1) == true)
 	{
 		hold_first = fork_ids[FK_LEFT];
 		hold_next = fork_ids[FK_RIGHT];

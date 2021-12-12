@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:35:35 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/10 10:13:56 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/12 00:56:38 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	ph_init_env(t_env *env, int argc, char *argv[], t_philo **philo_arr)
 	env->time.die = ph_convert_str_to_int(argv[2]);
 	env->time.eat = ph_convert_str_to_int(argv[3]);
 	env->time.sleep = ph_convert_str_to_int(argv[4]);
+	env->first_turn = true;
 	if (argc > 5)
 		env->meal_limit = ph_convert_str_to_int(argv[5]);
 	if (ph_init_tid_array(env) == ERROR \

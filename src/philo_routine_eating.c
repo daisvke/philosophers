@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 05:46:03 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/10 09:16:30 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/12 03:08:22 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	ph_hold_a_fork(t_env *env, t_philo *philo, size_t id, bool next_fork)
 {
 	size_t	curr_time;
 
-	if (ph_print_msg(env, philo, MSG_TAKE_FORK) == ERROR \
-		|| ph_lock_fork(env, id) == ERROR)
+	if (ph_lock_fork(env, id) == ERROR \
+		|| ph_print_msg(env, philo, MSG_TAKE_FORK) == ERROR)
 		return (ERROR);
 	if (next_fork)
 	{

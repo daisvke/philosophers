@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 08:13:23 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/10 08:54:35 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/12 03:08:22 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,9 @@ void	*ph_start_routine_philo(void *data)
 	t_env		*env;
 	t_philo		*philo;
 	pthread_t	monitor_tid;
-	size_t		id;
 
 	philo = (t_philo *)data;
 	env = philo->env;
-	id = philo->id;
 	if (ph_run_life_monitor(philo, &monitor_tid) == ERROR)
 		return (NULL);
 	if (ph_notify_simulation_has_started_and_set_the_last_meal_time(\

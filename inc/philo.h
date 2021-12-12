@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:26 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/10 10:13:56 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/11 22:22:09 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_env
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	locks[LOCK_NBR];
 	bool			lock_print;
+	bool			first_turn;
 	bool			philo_died;
 	bool			philo_reached_meal_limit;
 	bool			error_occured_on_some_thread;

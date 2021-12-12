@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:57:32 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/10 10:13:56 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/12 03:02:39 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ph_get_array_of_error_messages(char *errors[])
 	errors[3] = "Failed to lock mutex";
 	errors[4] = "Failed to unlock mutex";
 	errors[5] = "Failed to join thread";
-	errors[6] = "Usleep failed";
+	errors[6] = "usleep failed";
 	errors[7] = "Gettimeofday failed";
 	errors[8] = "Arguments should be numbers";
 	errors[9] = "Failed to init mutex";
