@@ -29,7 +29,9 @@ OBJ				=	$(addprefix $(OBJ_DIR), $(OBJ_FILES))
 all: $(NAME)
 
 $(NAME): $(OBJ)
+		@echo -n "\nCOMPILING PHILO...\t\t"
 		@$(CC) $(OBJ) -o $@
+		@echo "\033[32m[OK]\033[0m\n"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 		@mkdir -p obj/
