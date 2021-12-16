@@ -6,13 +6,13 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:57:32 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 08:09:41 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/12 03:02:39 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-char	**ph_get_array_of_error_messages(char *errors[])
+void	ph_get_array_of_error_messages(char *errors[])
 {
 	errors[0] = "Usage: ./philo [number of philosophers] [time to die]" \
 		" [time to eat] [time to sleep]" \
@@ -22,12 +22,13 @@ char	**ph_get_array_of_error_messages(char *errors[])
 	errors[3] = "Failed to lock mutex";
 	errors[4] = "Failed to unlock mutex";
 	errors[5] = "Failed to join thread";
-	errors[6] = "Usleep failed";
+	errors[6] = "usleep failed";
 	errors[7] = "Gettimeofday failed";
 	errors[8] = "Arguments should be numbers";
 	errors[9] = "Failed to init mutex";
 	errors[10] = "Failed to detach thread";
-	return (errors);
+	errors[11] = "Failed to destroy lock mutex";
+	errors[12] = "Failed to destroy fork mutex";
 }
 
 char	*ph_get_err_message_from_err_code(size_t err_code)
@@ -59,7 +60,7 @@ void	ph_print_error_message(size_t err_code)
 	ph_putstr_fd("\n", STDERR_FILENO);
 }
 
-int	ph_print_errors_and_exit(t_env env)
+int	ph_print_errors_if_any_and_exit(t_env env)
 {
 	size_t	err_code;
 	bool	found_error;

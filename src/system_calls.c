@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 03:38:47 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 05:28:41 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/07 23:01:30 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ int	ph_gettime(t_env *env, size_t *curr_time)
 	struct timeval	tv;
 	size_t			sec_in_usec;
 	size_t			usec;
-	
+
 	if (gettimeofday(&tv, NULL) != SUCCESS)
 	{
 		env->error_occured_on_some_thread = true;
 		env->errors[7] = true;
-		return  (ERROR);
+		return (ERROR);
 	}
 	sec_in_usec = tv.tv_sec * 1000000;
 	usec = tv.tv_usec;

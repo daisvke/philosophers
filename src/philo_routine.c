@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 08:13:23 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 08:31:05 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/12 03:08:22 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,37 @@
 
 bool	ph_continue_diner(t_env *env, t_philo *philo)
 {
-	if (env->philo_died == false && philo->reached_meal_limit == false
-		&& env->error_occured_on_some_thread == false)
+	if (ph_lock_conditions_2(env) == ERROR)
+		return (false);
+	if (\
+		env->philo_died == false \
+		&& philo->reached_meal_limit == false \
+		&& env->error_occured_on_some_thread == false \
+		)
+	{
+		if (ph_unlock_conditions_2(env) == ERROR)
+			return (false);
 		return (true);
+	}
+	if (ph_unlock_conditions_2(env) == ERROR)
+		return (false);
 	return (false);
 }
 
 int	ph_is_sleeping(t_env *env, t_philo *philo)
 {
+	if (ph_lock_philo_died(env) == ERROR)
+		return (ERROR);
 	if (env->philo_died == false)
 	{
-		if (ph_print_msg(env, philo, MSG_SLEEPING) == ERROR)
-			return (ERROR);
-		if (ph_usleep(env, env->time.sleep) == ERROR)
+		if (ph_unlock_philo_died(env) == ERROR \
+		|| ph_print_msg(env, philo, MSG_SLEEPING) == ERROR \
+		|| ph_usleep(env, env->time.sleep) == ERROR)
 			return (ERROR);
 	}
+	else
+		if (ph_unlock_philo_died(env) == ERROR)
+			return (ERROR);
 	return (SUCCESS);
 }
 
@@ -39,22 +55,37 @@ int	ph_is_thinking(t_env *env, t_philo *philo)
 	return (SUCCESS);
 }
 
-void	*ph_start_routine(void *data)
+int	ph_notify_simulation_has_started_and_set_the_last_meal_time(\
+	t_env *env, t_philo *philo)
 {
-	t_env	*env;
-	t_philo	*philo;
-	size_t	id;
-	size_t	curr_time;
+	size_t		curr_time;
+
+	if (ph_gettime(env, &curr_time) == ERROR \
+		|| ph_lock_last_meal_time(env) == ERROR)
+		return (ERROR);
+	philo->last_meal_time = curr_time;
+	if (ph_unlock_last_meal_time(env) == ERROR \
+		|| ph_lock_start_simulation(env) == ERROR)
+		return (ERROR);
+	philo->start_simulation = true;
+	if (ph_unlock_start_simulation(env) == ERROR)
+		return (ERROR);
+	return (SUCCESS);
+}
+
+void	*ph_start_routine_philo(void *data)
+{
+	t_env		*env;
+	t_philo		*philo;
+	pthread_t	monitor_tid;
 
 	philo = (t_philo *)data;
 	env = philo->env;
-	id = philo->id;
-	if (ph_run_life_monitor(philo) == ERROR)
+	if (ph_run_life_monitor(philo, &monitor_tid) == ERROR)
 		return (NULL);
-	if (ph_gettime(env, &curr_time) == ERROR)
+	if (ph_notify_simulation_has_started_and_set_the_last_meal_time(\
+		env, philo) == ERROR)
 		return (NULL);
-	philo->last_meal_time = curr_time;
-	philo->monitor_on = true;
 	while (ph_continue_diner(env, philo) == true)
 	{
 		if (ph_is_eating(env, philo) == ERROR \
@@ -62,5 +93,6 @@ void	*ph_start_routine(void *data)
 			|| ph_is_thinking(env, philo) == ERROR)
 			break ;
 	}
+	ph_pthread_join(env, monitor_tid);
 	return (NULL);
 }

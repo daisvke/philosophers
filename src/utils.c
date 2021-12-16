@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:07:28 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/04 08:09:41 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2021/12/09 04:46:11 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,9 @@ bool	ph_is_numeric(char *str)
 		++i;
 	}
 	return (true);
+}
+
+bool	ph_is_impair(size_t nbr)
+{
+	return (nbr % 2 != 0);
 }
