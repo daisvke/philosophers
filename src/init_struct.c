@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:35:35 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/12 00:56:38 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2022/01/06 03:54:37 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,8 @@ int	ph_init_lock_array(t_env *env)
 	return (SUCCESS);
 }
 
-int	ph_init_env(t_env *env, int argc, char *argv[], t_philo **philo_arr)
+int	ph_init_env(t_env *env, t_philo **philo_arr)
 {
-	memset(env, 0, sizeof(t_env));
-	env->philo_nbr = ph_convert_str_to_int(argv[1]);
-	env->time.die = ph_convert_str_to_int(argv[2]);
-	env->time.eat = ph_convert_str_to_int(argv[3]);
-	env->time.sleep = ph_convert_str_to_int(argv[4]);
-	env->first_turn = true;
-	if (argc > 5)
-		env->meal_limit = ph_convert_str_to_int(argv[5]);
 	if (ph_init_tid_array(env) == ERROR \
 		|| ph_init_fork_array(env) == ERROR \
 		|| ph_init_lock_array(env) == ERROR \

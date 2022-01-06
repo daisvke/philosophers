@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:57:32 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/12 03:02:39 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2022/01/06 04:22:14 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ph_get_array_of_error_messages(char *errors[])
 {
 	errors[0] = "Usage: ./philo [number of philosophers] [time to die]" \
 		" [time to eat] [time to sleep]" \
-		" [number of times each philosopher must eat] (optionnal)";
+		" [number of times each philosopher must eat (optionnal)]";
 	errors[1] = "Malloc failed";
 	errors[2] = "Failed to create new thread";
 	errors[3] = "Failed to lock mutex";
@@ -29,6 +29,10 @@ void	ph_get_array_of_error_messages(char *errors[])
 	errors[10] = "Failed to detach thread";
 	errors[11] = "Failed to destroy lock mutex";
 	errors[12] = "Failed to destroy fork mutex";
+	errors[13] = "Arguments should not contain any sign";
+	errors[14] = "At least one of the arguments is too long";
+	errors[15] = "Arguments should be smaller than int max";
+	errors[16] = "Argument cannot be null";
 }
 
 char	*ph_get_err_message_from_err_code(size_t err_code)

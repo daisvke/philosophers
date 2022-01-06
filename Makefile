@@ -3,13 +3,14 @@ CC				=	clang $(INC) $(THREADS) $(WFLAGS) $(OPT)
 WFLAGS			=	-Wall -Wextra -Werror
 INC				=	-I inc
 THREADS			=	-pthread
-MEM				=	-g3 -fsanitize=thread
+MEM				=	-g3 -fsanitize=thread -fsanitize=undefined
 OPT				=	-O3
 
 RM				=	rm -rf
 
 SRC_DIR			=	src/
-SRC_FILES		=	check_state.c \
+SRC_FILES		=	check_arguments.c \
+					check_state.c \
 					error_handler.c \
 					exit.c \
 					init_struct.c \
@@ -37,19 +38,18 @@ OBJ				=	$(addprefix $(OBJ_DIR), $(OBJ_FILES))
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		@echo -n "\nCOMPILING PHILO...\t\t"
-		@$(CC) $(OBJ) -o $@
-		@echo "\033[32m[OK]\033[0m\n"
+		$(CC) $(OBJ) -o $@
+		@echo "\n\033[32m[COMPILATION FINISHED]\033[0m\n"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-		@mkdir -p obj/
-		@$(CC) -c $< -o $@  
+		mkdir -p obj/
+		$(CC) -c $< -o $@  
 
 clean:
-		@$(RM) $(OBJ_DIR)
+		$(RM) $(OBJ_DIR)
 
 fclean: clean
-		@$(RM) $(NAME)
+		$(RM) $(NAME)
 
 re: fclean all
 

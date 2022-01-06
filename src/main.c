@@ -6,45 +6,11 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:16:24 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/10 10:13:56 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2022/01/06 04:18:02 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-bool	ph_check_if_args_are_numbers(int argc, char *argv[])
-{
-	int	i;
-
-	i = 1;
-	while (i < argc)
-	{
-		if (ph_is_numeric(argv[i]) == false)
-			return (false);
-		++i;
-	}
-	return (true);
-}
-
-bool	ph_check_args(t_env *env, int argc, char *argv[])
-{
-	bool	found_error;
-
-	found_error = false;
-	if (argc < 5)
-	{	
-		env->errors[0] = true;
-		found_error = true;
-	}
-	if (ph_check_if_args_are_numbers(argc, argv) == false)
-	{
-		env->errors[8] = true;
-		found_error = true;
-	}
-	if (found_error == true)
-		return (ERROR);
-	return (OK);
-}
 
 void	ph_init_errors(t_env *env)
 {
@@ -60,10 +26,11 @@ int	main(int argc, char *argv[])
 	t_env	env;
 	t_philo	*philo_arr;
 
+	memset(&env, 0, sizeof(t_env));
 	ph_init_errors(&env);
 	if (ph_check_args(&env, argc, argv) != ERROR)
 	{
-		if (ph_init_env(&env, argc, argv, &philo_arr) != ERROR)
+		if (ph_init_env(&env, &philo_arr) != ERROR)
 			ph_run_philo(&env, philo_arr);
 		ph_clean_arrays(&env, philo_arr);
 	}

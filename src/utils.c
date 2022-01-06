@@ -6,28 +6,35 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 21:07:28 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/09 04:46:11 by root             ###   ########.fr       */
+/*   Updated: 2022/01/06 03:58:28 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ph_convert_str_to_int(char *str)
+size_t	ph_convert_str_to_int(t_env *env, char *str, bool *error)
 {
-	size_t	i;
-	int		res;
+	size_t		i;
+	long long	res;
 
 	i = 0;
 	res = 0;
 	while (str[i])
 	{
-		if (str[i] != '+')
-		{
-			if (i != 0)
-				res *= 10;
-			res += str[i] - '0';
-		}
+		if (i != 0)
+			res *= 10;
+		res += str[i] - '0';
 		++i;
+	}
+	if (res > 2147483647)
+	{
+		env->errors[15] = true;
+		*error = true;
+	}
+	else if (res == 0)
+	{
+		env->errors[16] = true;
+		*error = true;
 	}
 	return (res);
 }

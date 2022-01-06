@@ -6,7 +6,7 @@
 /*   By: dtanigaw <dtanigaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 05:46:03 by dtanigaw          #+#    #+#             */
-/*   Updated: 2021/12/12 03:08:22 by dtanigaw         ###   ########.fr       */
+/*   Updated: 2022/01/06 04:03:38 by dtanigaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,8 @@ int	ph_wait_until_eating(t_env *env, t_philo *philo, size_t *fork_ids)
 			|| ph_print_msg(env, philo, MSG_EATING) == ERROR \
 			|| ph_usleep(env, env->time.eat) == ERROR)
 		{
-			if (ph_unlock_fork(env, fork_1) == ERROR \
-				|| ph_unlock_fork(env, fork_2) == ERROR)
-				return (ERROR);
+			ph_drop_forks(env, fork_ids);
+			return (ERROR);
 		}
 	}
 	else
