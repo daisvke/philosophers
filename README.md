@@ -35,7 +35,7 @@ of a philosopher
 
 ### Return & Errors
 
-* Any change of status of a philosopher is written as follows (with X replaced with the philosopher number and timestamp_in_ms the current timestamp in milliseconds):
+* Any change of status of a philosopher is written as follows (with X replaced with the philosopher number and timestamp_in_ms the current timestamp in milliseconds):<br />
 ◦ timestamp_in_ms X has taken a fork<br />
 ◦ timestamp_in_ms X is eating<br />
 ◦ timestamp_in_ms X is sleeping<br />
