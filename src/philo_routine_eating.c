@@ -65,11 +65,6 @@ int	ph_drop_forks(t_env *env, size_t *fork_ids)
 
 int	ph_wait_until_eating(t_env *env, t_philo *philo, size_t *fork_ids)
 {
-	size_t	fork_1;
-	size_t	fork_2;
-
-	fork_1 = fork_ids[0];
-	fork_2 = fork_ids[1];
 	if (ph_lock_philo_died(env) == ERROR)
 		return (ERROR);
 	if (env->philo_died == false)
@@ -90,10 +85,8 @@ int	ph_wait_until_eating(t_env *env, t_philo *philo, size_t *fork_ids)
 
 int	ph_is_eating(t_env *env, t_philo *philo)
 {
-	size_t	philo_id;
 	size_t	fork_ids[2];
 
-	philo_id = philo->id;
 	ph_get_forks_id(philo, fork_ids);
 	if (ph_hold_forks(env, philo, fork_ids) == ERROR \
 		|| ph_wait_until_eating(env, philo, fork_ids) == ERROR \
