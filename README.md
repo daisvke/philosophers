@@ -1,6 +1,9 @@
 # philosophers
 
 In this project we propose a solution of the [Dining philosophers problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem).
+It should generate no leak and no race conditions while checking with helgrind or fsanitize.<br />
+It uses a secondary thread on every main thread (=philosopher) to check its state.<br />
+Although it is enough to validate the project, this method is however not recommended as it uses too much ressourcesand slows down the whole program.
 
 ### Description
 
